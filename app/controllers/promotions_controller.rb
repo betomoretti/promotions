@@ -42,11 +42,9 @@ class PromotionsController < ApplicationController
   def update
     respond_to do |format|
       if @promotion.update(promotion_params)
-        format.html { redirect_to @promotion, notice: 'Promotion was successfully updated.' }
-        format.json { render :show, status: :ok, location: @promotion }
-      else
         format.html { render :partial => "row_table", :locals => {:promotion => @promotion} }
-        format.json { render json: @promotion.errors, status: :unprocessable_entity }
+      else
+        format.json { render :json => { :errors => @promotion.errors }, :status => 409 }
       end
     end
   end
