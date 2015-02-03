@@ -1,0 +1,39 @@
+<div class="page-header">
+  <h1>Editar promocion</h1>
+</div>
+<%= render :partial => 'form' %>
+<script>
+    $(document).ready(function() {
+        var spinner = new Spinner(opts);
+        $('.promotion-edit-form').on('submit', function(e) {
+            e.preventDefault(); // stops default behavior
+            data = {};
+            $(this).serializeArray().map(function(x){data[x.name] = x.value;});//Arma el json con los datos del form
+            console.log(JSON.parse($(this).attr('data-id')).$oid);
+            id = JSON.parse($(this).attr('data-id')).$oid;
+            $.ajax({
+                url: $(this).attr('action'),
+                data: data,  
+                type: "PATCH",
+                beforeSend: function(){
+                    spinner.spin(document.getElementById('modal-spin'));
+                },
+                success: function(result){
+                    $('#myModal').modal('hide'); 
+                    $('#'+id).replaceWith(result);
+                },
+                error: function(xhr,status,error){
+                    errors = "";
+                    $.each($.parseJSON(xhr.responseText).errors, function(key, value){
+                      errors = errors + value[0];
+                    });
+                    $("#errors p").html(errors);
+                    $("#errors").addClass("alert alert-danger");
+                },
+                complete: function(){
+                    spinner.stop(document.getElementById('modal-spin'));
+                }
+            });
+        });  
+    });
+</script>

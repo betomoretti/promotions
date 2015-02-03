@@ -1,0 +1,37 @@
+<div class="page-header">
+  <h1>Nueva promocion</h1>
+</div>
+<%= render :partial => 'form' %>
+<script>
+    $(document).ready(function() {
+        var spinner = new Spinner(opts);
+        $('#new_promotion').on('submit', function(e) {
+            e.preventDefault(); // stops default behavior
+            data = {};
+            $(this).serializeArray().map(function(x){data[x.name] = x.value;});//Arma el json con los datos del form
+            $.ajax({
+                url: $(this).attr('action'),
+                data: data,  
+                type: "POST",
+                beforeSend: function(){
+                    spinner.spin(document.getElementById('modal-spin'));
+                },
+                success: function(result){
+                    $('#myModal').modal('hide');                
+                    $('#promotions_table tbody').append(result);
+                },
+                error: function(xhr,status,error){
+                    errors = "";
+                    $.each($.parseJSON(xhr.responseText).errors, function(key, value){
+                      errors = errors + value[0];
+                    });
+                    $("#errors p").html(errors);
+                    $("#errors").addClass("alert alert-danger");
+                },
+                complete: function(){
+                    spinner.stop(document.getElementById('modal-spin'));
+                }
+            });
+        });  
+    });
+</script>

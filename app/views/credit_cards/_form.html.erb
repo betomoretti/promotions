@@ -1,0 +1,53 @@
+<%= form_for @credit_card, :html => { :class => "form-horizontal credit_card" } do |f| %>
+
+  <% if @credit_card.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@credit_card.errors.count, "error") %> prohibited this credit_card from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @credit_card.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label "Nombre", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-3">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:name) %>
+  </div>
+  <div class="form-group">
+    <%= f.label "Cantidad de digitos", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-1">
+      <%= f.text_field :quantity_digits, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:quantity_digits) %>
+  </div>
+  <div class="form-group">
+    <%= f.label "Cantidad de digitos de seguridad", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-1">
+      <%= f.text_field :quantity_code_security, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:quantity_code_security) %>
+  </div>
+  <div class="form-group">
+    <%= f.label "Comienzo del bin", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-1">
+      <%= f.text_field :bin_start, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:bin_start) %>
+  </div>
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit "Crear", :class => 'btn btn-primary' %>
+      <%= link_to "Cancelar",
+                credit_cards_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

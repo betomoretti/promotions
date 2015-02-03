@@ -1,0 +1,43 @@
+<script>
+  $(document).ready(function() { 
+    $("#promotion_bank_id").select2();
+    $("#promotion_credit_card_id").select2();
+  });
+</script>
+
+<%= form_for(@promotion, :html => { :class => @promotion.new_record? ? 'form-horizontal promotion' : 'form-horizontal promotion promotion-edit-form'}, data: {id: !@promotion.new_record? ? @promotion.id : ''}) do |f| %>
+  <div id="errors" role="alert"><p></p></div>
+  <div class="form-group">
+    <%= f.label "Cuotas", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-5">
+      <%= f.text_field :quota, :placeholder => "Ej: 1, 3 y 6", :class => 'form-control' %>
+      
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label "Bins", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-5">
+      <%= f.text_field :bin, :placeholder => "Ej: 1234, 5678", :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label "Banco", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-3">
+      <%# f.select(:bank, @banks, { include_blank: true }, :class => 'form-control') %>
+      <%= select(:promotion, :bank_id, @banks, { include_blank: true }, :class => 'form-control') %>
+    </div>
+    <%= f.label "Tarjeta de credito", :class => 'control-label col-lg-3' %>
+    <div class="col-lg-2">
+      <%= select(:promotion, :credit_card_id, @credit_cards, { include_blank: true }, :class => 'form-control') %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit @promotion.new_record? ? 'Crear' : 'Editar', :id => 'send_promotion_form', :class => 'btn btn-primary' %>
+      <!-- <button id="send_promotion_form" class="btn btn-primary">Crear</button> -->
+    </div>
+  </div>
+
+<% end %>
+

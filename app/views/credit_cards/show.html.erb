@@ -1,0 +1,25 @@
+<%- model_class = CreditCard -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @credit_card.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:quantity_digits) %>:</strong></dt>
+  <dd><%= @credit_card.quantity_digits %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:quantity_code_security) %>:</strong></dt>
+  <dd><%= @credit_card.quantity_code_security %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:bin_start) %>:</strong></dt>
+  <dd><%= @credit_card.bin_start %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              credit_cards_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_credit_card_path(@credit_card), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              credit_card_path(@credit_card),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

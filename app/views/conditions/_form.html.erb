@@ -1,0 +1,83 @@
+<script>
+  $(document).ready(function() { 
+    $("#condition_airline").select2();
+  });
+</script>
+<%= form_for(@condition) do |f| %>
+  <% if @condition.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@condition.errors.count, "error") %> prohibited this condition from being saved:</h2>
+
+      <ul>
+      <% @condition.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="control-group">
+        <%= f.label "Aerolinea", :class => 'control-label' %>
+        <div class="controls">
+          <%= f.select(:airline, @airlines,{ include_blank: true }, :class => 'form-control') %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="control-group">
+        <%= f.label "Fecha de inicio", :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :start_date, :required => true, :class => 'form-control datepicker' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="control-group">
+        <%= f.label "Fecha de fin", :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :end_date, :required => true, :class => 'form-control datepicker' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div id="table">
+        <%= render partial: "promotions/list", locals: {promotions: @promotions} %>        
+      </div>
+    </div>
+    <!-- <div class="row"> -->
+      <div class="col-md-12"> 
+        <div class="control-group">
+            <%= f.label "Descripcion legal", :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_area :legal_description, :class => 'form-control text-area-legal-description' %>
+            </div>
+        </div>
+      </div>
+    <!-- </div> -->
+    <div class="col-md-3">
+      <div class="actions">
+        <%= f.submit "Crear condicion",:class => 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <span id="modal-spin" style="position: absolute;display: block;top: 50%;left: 50%;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('.datepicker').datepicker({
+    language: 'es',
+    format: 'yyyy-mm-dd',
+    todayHighlight: true
+  });
+</script>

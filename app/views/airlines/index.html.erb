@@ -1,0 +1,18 @@
+<%- model_class = Airline -%>
+<div class="page-header">
+  <h1>Aerolineas</h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @airlines.each do |airline| %>
+      <tr>
+        <td><%= airline.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
