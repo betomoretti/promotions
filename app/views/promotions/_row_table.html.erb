@@ -11,27 +11,30 @@
         Eliminar
       </button>
   </td>
+  <% if @render_hidden_input %>
+    <input type="hidden" name="condition[promotions][id]" value="<%= promotion.id%>">
+  <% end %>
 </tr>
 <script type="text/javascripts">
   $(document).ready(function() {
     var spinner = new Spinner(opts);
-    $('.button-delete-promotion').on('click', function(e) {
-      e.preventDefault(); // stops default behavior
-      if ( confirm("Esta seguro de eliminar esta promocion?") ) {
-        $.ajax({
-          url: "/promotions/"+$(this).attr('data-promotion'),  
-          type: "DELETE",
-          beforeSend: function(){
-            // spinner.spin(document.getElementById('modal-spin'));
-          },
-          success: function(result){
-              $('#'+$('.button-delete-promotion').attr('data-promotion')).remove();
-          },
-          complete: function(){
-            // spinner.stop(document.getElementById('modal-spin'));
-          }
-        });  
-      }
-    });  
+    // $('.button-delete-promotion').on('click', function(e) {
+    //   e.preventDefault(); // stops default behavior
+    //   if ( confirm("Esta seguro de eliminar esta promocion?") ) {
+    //     $.ajax({
+    //       url: "/promotions/"+$(this).attr('data-promotion'),  
+    //       type: "DELETE",
+    //       beforeSend: function(){
+    //         // spinner.spin(document.getElementById('modal-spin'));
+    //       },
+    //       success: function(result){
+    //           $('#'+$('.button-delete-promotion').attr('data-promotion')).remove();
+    //       },
+    //       complete: function(){
+    //         // spinner.stop(document.getElementById('modal-spin'));
+    //       }
+    //     });  
+    //   }
+    // });  
   });   
 </script>

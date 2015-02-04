@@ -48,6 +48,7 @@ $(document).ready(function() {
   $('body').on('click', '.button-edit-promotion', function () {
     call_forms("/promotions/"+$(this).attr('data-promotion')+"/edit/");
   });
+  
 });
 
 

@@ -1,5 +1,27 @@
 <h1>Nueva condicion</h1>
 
 <%= render 'form' %>
-
-<%= link_to 'Volver', conditions_path %>
+<div style="float:right;margin-top:-33px">
+    <%= link_to 'Volver', conditions_path, :class => "btn btn-default"%>
+</div>
+<script type="text/javascript">
+    $('body').on('click', '.button-delete-promotion', function (e) {
+        console.log("/promotions/"+$(this).attr('data-promotion'));
+        e.preventDefault(); // stops default behavior
+        if ( confirm("Esta seguro de eliminar esta promocion?") ) {
+          $.ajax({
+            url: "/promotions/"+$(this).attr('data-promotion'),  
+            type: "DELETE",
+            beforeSend: function(){
+              // spinner.spin(document.getElementById('modal-spin'));
+            },
+            success: function(result){
+                $('#'+$('.button-delete-promotion').attr('data-promotion')).remove();
+            },
+            complete: function(){
+              // spinner.stop(document.getElementById('modal-spin'));
+            }
+          });  
+        }
+    });
+</script>

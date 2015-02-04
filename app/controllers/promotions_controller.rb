@@ -28,9 +28,10 @@ class PromotionsController < ApplicationController
   # POST /promotions.json
   def create
     @promotion = Promotion.new(promotion_params)
+    @render_hidden_input = true if request.xhr?
     respond_to do |format|
       if @promotion.save
-        format.html { render :partial => "row_table", :locals => {:promotion => @promotion} }
+        format.html { render :partial => "row_table", :locals => { :promotion => @promotion, :render_hidden_input => @render_hidden_input } }
       else
         format.json { render :json => { :errors => @promotion.errors }, :status => 409 }
       end
