@@ -3,8 +3,8 @@ class Condition
     include Mongoid::ActiveRecordBridge
     include Mongoid::Timestamps
 
-    field :start_date, type: Time
-    field :end_date, type: Time
+    field :start_date, type: Date
+    field :end_date, type: Date
     field :legal_description, type: String
 
     belongs_to_record :airline

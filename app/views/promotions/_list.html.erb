@@ -1,11 +1,14 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">
-    <div>Promociones<div style="float:right">
+    <div>Promociones
+    <% if params[:action] != "show" %>
+      <div style="float:right">
         <button type="button" id="button_new_promotion" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
           Nueva Promocion
-        </button>
+      </button>
       </div>
+      <% end %>
     </div>
   </div>
   
@@ -17,7 +20,9 @@
         <th>Bin</th>
         <th>Banco</th>
         <th>Tarjeta</th>
-        <th>Acciones</th>
+        <% if params[:action] != "show" %>
+          <th>Acciones</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -28,13 +33,15 @@
           <td><%= promotion.bank.name unless promotion.bank.nil? %></td>
           <td><%= promotion.credit_card.name unless promotion.credit_card.nil? %></td>
           <td>
-            <%= link_to "Editar",
-                        edit_promotion_path(promotion), :class => 'btn btn-default btn-xs', :data => {:promotion => promotion.id} %>
-            <%= link_to "Eliminar",
-                        promotion_path(promotion),
-                        :method => :delete,
-                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :promotion => promotion.id },
-                        :class => 'btn btn-xs btn-danger' %>
+            <% if params[:action] != "show" %>
+              <%= link_to "Editar",
+                          edit_promotion_path(promotion), :class => 'btn btn-default btn-xs', :data => {:promotion => promotion.id} %>
+              <%= link_to "Eliminar",
+                          promotion_path(promotion),
+                          :method => :delete,
+                          :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :promotion => promotion.id },
+                          :class => 'btn btn-xs btn-danger' %>
+            <% end %>
           </td>
         </tr>
       <% end %>

@@ -1,27 +1,110 @@
 <h1>Nueva condicion</h1>
 
-<%= render 'form' %>
+<%# render 'form' %>
+<script>
+  $(document).ready(function() { 
+    $("#condition_airline").select2();
+  });
+</script>
+
+<%= form_for(@condition, url: conditions_path, html: { method: "post" }  ) do |f| %>
+
+  <% if @condition.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@condition.errors.count, "error") %> prohibited this condition from being saved:</h2>
+
+      <ul>
+      <% @condition.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <input type="hidden" name="condition[id]" value="<%= @condition.id%>">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="control-group">
+        <%= f.label "Aerolinea", :class => 'control-label' %>
+        <div class="controls">
+          <%= f.select(:airline, @airlines,{ include_blank: true }, :class => 'form-control') %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="control-group">
+        <%= f.label "Fecha de inicio", :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :start_date, :required => true, :class => 'form-control datepicker' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="control-group">
+        <%= f.label "Fecha de fin", :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :end_date, :required => true, :class => 'form-control datepicker' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div id="table">
+        <%= render partial: "promotions/list", locals: {promotions: @promotions} %>        
+      </div>
+    </div>
+    <!-- <div class="row"> -->
+      <div class="col-md-12"> 
+        <div class="control-group">
+            <%= f.label "Descripcion legal", :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_area :legal_description, :class => 'form-control text-area-legal-description' %>
+            </div>
+        </div>
+      </div>
+    <!-- </div> -->
+    <div class="col-md-3">
+      <div class="actions">
+        <%= f.submit "Crear condicion",:class => 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <span id="modal-spin" style="position: absolute;display: block;top: 50%;left: 50%;"></span>
+      </div>
+    </div>
+  </div>
+</div>
 <div style="float:right;margin-top:-33px">
     <%= link_to 'Volver', conditions_path, :class => "btn btn-default"%>
 </div>
 <script type="text/javascript">
+    $('.datepicker').datepicker({
+        language: 'es',
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+      });
     $('body').on('click', '.button-delete-promotion', function (e) {
         console.log("/promotions/"+$(this).attr('data-promotion'));
         e.preventDefault(); // stops default behavior
         if ( confirm("Esta seguro de eliminar esta promocion?") ) {
-          $.ajax({
-            url: "/promotions/"+$(this).attr('data-promotion'),  
-            type: "DELETE",
-            beforeSend: function(){
-              // spinner.spin(document.getElementById('modal-spin'));
-            },
-            success: function(result){
-                $('#'+$('.button-delete-promotion').attr('data-promotion')).remove();
-            },
-            complete: function(){
-              // spinner.stop(document.getElementById('modal-spin'));
-            }
-          });  
+            $.ajax({
+                url: "/promotions/"+$(this).attr('data-promotion'),  
+                type: "DELETE",
+                beforeSend: function(){
+                // spinner.spin(document.getElementById('modal-spin'));
+                },
+                success: function(result){
+                    $('#'+$('.button-delete-promotion').attr('data-promotion')).remove();
+                },
+                complete: function(){
+                // spinner.stop(document.getElementById('modal-spin'));
+                }
+            });  
         }
     });
 </script>

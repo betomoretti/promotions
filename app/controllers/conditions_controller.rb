@@ -10,11 +10,13 @@ class ConditionsController < ApplicationController
   # GET /conditions/1
   # GET /conditions/1.json
   def show
+    @promotions = @condition.promotions
   end
 
   # GET /conditions/new
   def new
     @condition = Condition.new
+    @condition.save(:validate => false)
     @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
     @promotions = []
   end
@@ -30,11 +32,9 @@ class ConditionsController < ApplicationController
     @condition = condition_service.add_complete_data_to_condition
     respond_to do |format|
       if @condition.save
-        format.html { redirect_to @condition, notice: 'Condition was successfully created.' }
-        format.json { render :show, status: :created, location: @condition }
+        format.html { redirect_to @condition, notice: 'La condicion se ha creado con exito.' }
       else
         format.html { render :new }
-        format.json { render json: @condition.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -71,6 +71,6 @@ class ConditionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def condition_params
-      params.require(:condition).permit(:legal_description, :start_date, :end_date)
+      params.require(:condition)
     end
 end
