@@ -18,5 +18,4 @@
 //= require spin.min
 //= require select2
 //= require select2_locale_es
-//= require turbolinks
 //= require_tree .
