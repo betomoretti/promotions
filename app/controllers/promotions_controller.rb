@@ -7,31 +7,36 @@ class PromotionsController < ApplicationController
     @promotion = Promotion.new
     render layout: false
   end
+  
+  # PATCH /promotions/1/enable
+  def enable
+    respond_to do |format|
+      if @promotion.update_attribute(:active, true)
+        @render_hidden_input = true if request.xhr?
+        format.html { render :partial => "row_table", :locals => { :promotion => @promotion, :render_hidden_input => @render_hidden_input } }
+      else
+        format.json { render :json => { :errors => @promotion.errors }, :status => 409 }
+      end
+    end
+  end
+
+  # PATCH /promotions/1/disable
+  def disable
+    respond_to do |format|
+      if @promotion.update_attribute(:active, false)
+        @render_hidden_input = true if request.xhr?
+        format.html { render :partial => "row_table", :locals => { :promotion => @promotion, :render_hidden_input => @render_hidden_input } }
+      else
+        format.json { render :json => { :errors => @promotion.errors }, :status => 409 }
+      end
+    end
+  end
 
   # GET /promotions/1/edit
   def edit
     render layout: false
   end
 
-  # GET /promotions/1/enable
-  def enable
-    render layout: false
-    if @promotion.update_attribute(:active, true)
-      format.html { render :partial => "row_table", :locals => { :promotion => @promotion, :render_hidden_input => @render_hidden_input } }
-    else
-      format.json { render :json => { :errors => @promotion.errors }, :status => 409 }
-    end
-  end
-
-  # GET /promotions/1/disable
-  def disable
-    render layout: false
-    if @promotion.update_attribute(:active, false)
-      format.html { render :partial => "row_table", :locals => { :promotion => @promotion, :render_hidden_input => @render_hidden_input } }
-    else
-      format.json { render :json => { :errors => @promotion.errors }, :status => 409 }
-    end
-  end
   # POST /promotions
   # POST /promotions.json
   def create

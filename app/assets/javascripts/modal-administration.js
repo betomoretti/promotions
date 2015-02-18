@@ -41,7 +41,6 @@ function call_forms(url){
 }
 
 function change_state_of_promotion(promotion, action) {
-  // id = JSON.parse(promotion).$oid;
   $.ajax({
     url: "/promotions/"+promotion+action,  
     type: "PATCH",

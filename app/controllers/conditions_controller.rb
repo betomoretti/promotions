@@ -5,6 +5,8 @@ class ConditionsController < ApplicationController
   # GET /conditions
   # GET /conditions.json
   def index
+    Promotion.delete_all(condition_id: nil)
+    Condition.delete_all(airline_id: nil)
     @conditions = Condition.all
   end
 
