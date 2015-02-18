@@ -1,13 +1,11 @@
-<h1>Editing condition</h1>
-
-<%# render 'form' %>
+<h1>Editar condicion</h1>
 <script>
   $(document).ready(function() { 
-    $("#condition_airline").select2();
+    $("#condition_airline_id").select2();
   });
 </script>
 
-<%= form_for(@condition, method: @method_form.to_sym) do |f| %>
+<%= form_for(@condition) do |f| %>
 
   <% if @condition.errors.any? %>
     <div id="error_explanation">
@@ -25,11 +23,11 @@
       <div class="control-group">
         <%= f.label "Aerolinea", :class => 'control-label' %>
         <div class="controls">
-          <%= f.select(:airline, @airlines,{ include_blank: true }, :class => 'form-control') %>
+          <%= select(:condition, :airline_id, @airlines, { include_blank: true }, :class => 'form-control') %>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="control-group">
         <%= f.label "Fecha de inicio", :class => 'control-label' %>
         <div class="controls">
@@ -37,11 +35,19 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="control-group">
         <%= f.label "Fecha de fin", :class => 'control-label' %>
         <div class="controls">
           <%= f.text_field :end_date, :required => true, :class => 'form-control datepicker' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="control-group">
+        <%= f.label "Activo", :class => 'control-label' %>
+        <div class="controls">
+          <%= f.check_box :active, :required => true, :class => 'form-control' %>
         </div>
       </div>
     </div>
@@ -62,7 +68,7 @@
     <!-- </div> -->
     <div class="col-md-3">
       <div class="actions">
-        <%= f.submit "Crear condicion",:class => 'btn btn-primary' %>
+        <%= f.submit "Editar condicion",:class => 'btn btn-primary' %>
       </div>
     </div>
   </div>
@@ -85,6 +91,26 @@
     format: 'yyyy-mm-dd',
     todayHighlight: true
   });
+  // $('body').on('click', '.button-delete-promotion', function (e) {
+  //   e.preventDefault(); // stops default behavior
+  //   if ( confirm("Esta seguro de eliminar esta promocion?") ) {
+  //     $.ajax({
+  //       url: "/promotions/"+$(this).attr('data-promotion'),  
+  //       type: "DELETE",
+  //       beforeSend: function(){
+  //       },
+  //       success: function(result){
+  //         console.log(result);
+  //         $('#'+$(".button-delete-promotion").attr('data-promotion')).remove();
+  //         console.log('success');
+  //       },
+  //       complete: function(){
+  //         console.log('complete');
+  //       }
+  //     });  
+  //   }
+  // });
 </script>
-<%= link_to 'Show', @condition %> |
-<%= link_to 'Back', conditions_path %>
+<div style="float:right;margin-top:-33px">
+    <%= link_to 'Volver', conditions_path, :class => "btn btn-default"%>
+</div>

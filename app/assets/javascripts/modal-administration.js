@@ -40,15 +40,57 @@ function call_forms(url){
   });
 }
 
+function change_state_of_promotion(promotion, action) {
+  // id = JSON.parse(promotion).$oid;
+  $.ajax({
+    url: "/promotions/"+promotion+action,  
+    type: "PATCH",
+    beforeSend: function(){
+    // spinner.spin(document.getElementById('modal-spin'));
+    },
+    success: function(result){
+      $('#'+promotion).replaceWith(result);
+    },
+    complete: function(){
+    // spinner.stop(document.getElementById('modal-spin'));
+    }
+  });
+}
+
 $(document).ready(function() { 
   opts = spin_opts();
-  $('#button_new_promotion').on('click', function(){
+  $('body').on('click','.button-new-promotion', function(){
     call_forms("/promotions/new");
   });
-  $('body').on('click', '.button-edit-promotion', function () {
-    call_forms("/promotions/"+$(this).attr('data-promotion')+"/edit/");
+
+  $('body').on('click','.button-edit-promotion', function(){
+    call_forms("/promotions/"+$(this).attr('data-promotion')+"/edit");
   });
-  
+
+  $('body').on('click', '.button-enable-promotion,.button-disable-promotion', function (e) {
+      e.preventDefault(); // stops default behavior
+      if ( confirm($(this).attr('data-message')) ) {
+          change_state_of_promotion($(this).attr('data-promotion'), $(this).attr('data-action'))
+      }
+  });
+  $('body').on('click', '.button-delete-promotion', function (e) {
+      e.preventDefault(); // stops default behavior
+      if ( confirm("Esta seguro de eliminar esta promocion?") ) {
+          $.ajax({
+              url: "/promotions/"+$(this).attr('data-promotion'),  
+              type: "DELETE",
+              beforeSend: function(){
+              // spinner.spin(document.getElementById('modal-spin'));
+              },
+              success: function(result){
+                  $('#'+$('.button-delete-promotion').attr('data-promotion')).remove();
+              },
+              complete: function(){
+              // spinner.stop(document.getElementById('modal-spin'));
+              }
+          });  
+      }
+  });  
 });
 
 

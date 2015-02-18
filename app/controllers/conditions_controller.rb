@@ -1,5 +1,6 @@
 class ConditionsController < ApplicationController
   before_action :set_condition, only: [:show, :edit, :update, :destroy]
+  before_action :set_airlines, only: [:edit, :new]
 
   # GET /conditions
   # GET /conditions.json
@@ -17,12 +18,13 @@ class ConditionsController < ApplicationController
   def new
     @condition = Condition.new
     @condition.save(:validate => false)
-    @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
     @promotions = []
   end
 
   # GET /conditions/1/edit
   def edit
+    @promotions = @condition.promotions
+    @render_hidden_input = true
   end
 
   # POST /conditions
@@ -34,6 +36,10 @@ class ConditionsController < ApplicationController
       if @condition.save
         format.html { redirect_to @condition, notice: 'La condicion se ha creado con exito.' }
       else
+        # p @condition.errors
+        @airline = Airline.find(condition_params[:airline]) unless condition_params[:airline].blank?
+        @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
+        @promotions = Promotion.find(params[:promotions].to_a.flatten.uniq)
         format.html { render :new }
       end
     end
@@ -42,13 +48,16 @@ class ConditionsController < ApplicationController
   # PATCH/PUT /conditions/1
   # PATCH/PUT /conditions/1.json
   def update
+    condition_service = ServiceCondition.new(condition_params)
+    @condition = condition_service.add_complete_data_to_condition(true)
     respond_to do |format|
-      if @condition.update(condition_params)
-        format.html { redirect_to @condition, notice: 'Condition was successfully updated.' }
-        format.json { render :show, status: :ok, location: @condition }
+      if @condition.save
+        format.html { redirect_to @condition, notice: 'La condicion se actualizado con exito.' }
       else
+        @airline = Airline.find(condition_params[:airline]) unless condition_params[:airline].blank?
+        @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
+        @promotions = Promotion.find(params[:promotions].to_a.flatten.uniq)
         format.html { render :edit }
-        format.json { render json: @condition.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -67,6 +76,10 @@ class ConditionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_condition
       @condition = Condition.find(params[:id])
+    end
+
+    def set_airlines
+      @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

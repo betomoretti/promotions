@@ -1,6 +1,4 @@
 <h1>Nueva condicion</h1>
-
-<%# render 'form' %>
 <script>
   $(document).ready(function() { 
     $("#condition_airline").select2();
@@ -30,7 +28,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="control-group">
         <%= f.label "Fecha de inicio", :class => 'control-label' %>
         <div class="controls">
@@ -38,11 +36,19 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="control-group">
         <%= f.label "Fecha de fin", :class => 'control-label' %>
         <div class="controls">
           <%= f.text_field :end_date, :required => true, :class => 'form-control datepicker' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="control-group">
+        <%= f.label "Activo", :class => 'control-label' %>
+        <div class="controls">
+          <%= f.check_box :active, :required => true, :class => 'form-control' %>
         </div>
       </div>
     </div>
@@ -88,23 +94,22 @@
         format: 'yyyy-mm-dd',
         todayHighlight: true
       });
-    $('body').on('click', '.button-delete-promotion', function (e) {
-        console.log("/promotions/"+$(this).attr('data-promotion'));
-        e.preventDefault(); // stops default behavior
-        if ( confirm("Esta seguro de eliminar esta promocion?") ) {
-            $.ajax({
-                url: "/promotions/"+$(this).attr('data-promotion'),  
-                type: "DELETE",
-                beforeSend: function(){
-                // spinner.spin(document.getElementById('modal-spin'));
-                },
-                success: function(result){
-                    $('#'+$('.button-delete-promotion').attr('data-promotion')).remove();
-                },
-                complete: function(){
-                // spinner.stop(document.getElementById('modal-spin'));
-                }
-            });  
-        }
-    });
+    // $('body').on('click', '.button-delete-promotion', function (e) {
+    //     e.preventDefault(); // stops default behavior
+    //     if ( confirm("Esta seguro de eliminar esta promocion?") ) {
+    //         $.ajax({
+    //             url: "/promotions/"+$(this).attr('data-promotion'),  
+    //             type: "DELETE",
+    //             beforeSend: function(){
+    //             // spinner.spin(document.getElementById('modal-spin'));
+    //             },
+    //             success: function(result){
+    //                 $('#'+$('.button-delete-promotion').attr('data-promotion')).remove();
+    //             },
+    //             complete: function(){
+    //             // spinner.stop(document.getElementById('modal-spin'));
+    //             }
+    //         });  
+    //     }
+    // });
 </script>

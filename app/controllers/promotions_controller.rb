@@ -1,29 +1,37 @@
 class PromotionsController < ApplicationController
-  before_action :set_promotion, only: [:show, :edit, :update, :destroy]
+  before_action :set_promotion, only: [:edit, :update, :destroy, :enable, :disable]
   before_action :set_banks_credit_cards, only: [:new, :edit]
-
-  # GET /promotions
-  # GET /promotions.json
-  def index
-    @promotions = Promotion.all
-  end
-
-  # GET /promotions/1
-  # GET /promotions/1.json
-  def show
-  end
 
   # GET /promotions/new
   def new
     @promotion = Promotion.new
-    render :layout => false
+    render layout: false
   end
 
   # GET /promotions/1/edit
   def edit
-    render :layout => false
+    render layout: false
   end
 
+  # GET /promotions/1/enable
+  def enable
+    render layout: false
+    if @promotion.update_attribute(:active, true)
+      format.html { render :partial => "row_table", :locals => { :promotion => @promotion, :render_hidden_input => @render_hidden_input } }
+    else
+      format.json { render :json => { :errors => @promotion.errors }, :status => 409 }
+    end
+  end
+
+  # GET /promotions/1/disable
+  def disable
+    render layout: false
+    if @promotion.update_attribute(:active, false)
+      format.html { render :partial => "row_table", :locals => { :promotion => @promotion, :render_hidden_input => @render_hidden_input } }
+    else
+      format.json { render :json => { :errors => @promotion.errors }, :status => 409 }
+    end
+  end
   # POST /promotions
   # POST /promotions.json
   def create
@@ -53,9 +61,10 @@ class PromotionsController < ApplicationController
   # DELETE /promotions/1
   # DELETE /promotions/1.json
   def destroy
-    @promotion.destroy
-    respond_to do |format|
-      format.json { head :no_content }
+    if @promotion.delete 
+      render :nothing => true, :status => 200 
+    else 
+      render :nothing => true, :status => 503
     end
   end
 
@@ -72,6 +81,6 @@ class PromotionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def promotion_params
-      params.require(:promotion).permit(:quota, :bin, :bank_id, :credit_card_id)
+      params.require(:promotion).permit(:quota, :bin, :bank_id, :credit_card_id, :start_date, :end_date, :active)
     end
 end
