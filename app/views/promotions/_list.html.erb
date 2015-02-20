@@ -4,7 +4,7 @@
     <div>Promociones
     <% if params[:action] != "show" %>
       <div style="float:right">
-        <button type="button" id="button_new_promotion" class="btn btn-primary btn-xs button-new-promotion" data-toggle="modal" data-target="#myModal">
+        <button type="button" id="button_new_promotion" data-condition="<%= condition.id %>" class="btn btn-primary btn-xs button-new-promotion" data-toggle="modal" data-target="#myModal">
           Nueva Promocion
       </button>
       </div>

@@ -1,7 +1,7 @@
 <h1>Nueva condicion</h1>
 <script>
   $(document).ready(function() { 
-    $("#condition_airline").select2();
+    $("#condition_airline_id").select2();
   });
 </script>
 
@@ -24,7 +24,9 @@
       <div class="control-group">
         <%= f.label "Aerolinea", :class => 'control-label' %>
         <div class="controls">
-          <%= f.select(:airline, @airlines,{ include_blank: true }, :class => 'form-control') %>
+          <%# f.select(:airline, @airlines,{ include_blank: true }, :class => 'form-control') %>
+          <%= select(:condition, :airline_id, @airlines, { include_blank: true }, :class => 'form-control') %>
+
         </div>
       </div>
     </div>
@@ -48,13 +50,13 @@
       <div class="control-group">
         <%= f.label "Activo", :class => 'control-label' %>
         <div class="controls">
-          <%= f.check_box :active, :required => true, :class => 'form-control' %>
+          <%= f.check_box :active, :class => 'form-control' %>
         </div>
       </div>
     </div>
     <div class="col-md-12">
       <div id="table">
-        <%= render partial: "promotions/list", locals: {promotions: @promotions} %>        
+        <%= render partial: "promotions/list", locals: {condition: @condition, promotions: @promotions} %>        
       </div>
     </div>
     <!-- <div class="row"> -->
@@ -89,27 +91,29 @@
     <%= link_to 'Volver', conditions_path, :class => "btn btn-default"%>
 </div>
 <script type="text/javascript">
-    $('.datepicker').datepicker({
-        language: 'es',
-        format: 'yyyy-mm-dd',
-        todayHighlight: true
-      });
-    // $('body').on('click', '.button-delete-promotion', function (e) {
-    //     e.preventDefault(); // stops default behavior
-    //     if ( confirm("Esta seguro de eliminar esta promocion?") ) {
-    //         $.ajax({
-    //             url: "/promotions/"+$(this).attr('data-promotion'),  
-    //             type: "DELETE",
-    //             beforeSend: function(){
-    //             // spinner.spin(document.getElementById('modal-spin'));
-    //             },
-    //             success: function(result){
-    //                 $('#'+$('.button-delete-promotion').attr('data-promotion')).remove();
-    //             },
-    //             complete: function(){
-    //             // spinner.stop(document.getElementById('modal-spin'));
-    //             }
-    //         });  
-    //     }
-    // });
+  $('.datepicker').datepicker({
+    language: 'es',
+    format: 'yyyy-mm-dd',
+    todayHighlight: true,
+    startDate: "today"  
+  });
+
+  formmodified=0;
+  
+  $('.edit_condition').change(function(){
+    formmodified=1;
+  });   
+  
+  $(window).bind('beforeunload', function(e){      
+    return exit();
+  });
+
+  function exit () {
+    if (formmodified == 1) {
+      return "Hay cambios que no se han guardado. Se perderan si confirma dejar el formulario.";
+    }
+  }
+  $("input[name='commit']").click(function() {
+    formmodified = 0;
+  });
 </script>

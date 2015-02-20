@@ -19,7 +19,7 @@ function spin_opts() {
   };
 }
 
-function call_forms(url){
+function call_forms(url, condition){
   var spinner = new Spinner(opts);
   $.ajax({
     type: 'GET',
@@ -30,6 +30,7 @@ function call_forms(url){
     success: function(data) {
       $('#myModal div.modal-dialog div.modal-content div.modal-body').append(data);
       $('#myModal').modal('show');
+      $('form#new_promotion').append('<input type="hidden" name="promotion[condition_id]" value="'+condition+'">');
       $('#myModal').on('hidden.bs.modal', function (e) {
         $("#myModal div.modal-dialog div.modal-content div.modal-body").empty();
       });
@@ -59,11 +60,11 @@ function change_state_of_promotion(promotion, action) {
 $(document).ready(function() { 
   opts = spin_opts();
   $('body').on('click','.button-new-promotion', function(){
-    call_forms("/promotions/new");
+    call_forms("/promotions/new", $(this).attr('data-condition'));
   });
 
   $('body').on('click','.button-edit-promotion', function(){
-    call_forms("/promotions/"+$(this).attr('data-promotion')+"/edit");
+    call_forms("/promotions/"+$(this).attr('data-promotion')+"/edit", $(this).attr('data-condition'));
   });
 
   $('body').on('click', '.button-enable-promotion,.button-disable-promotion', function (e) {

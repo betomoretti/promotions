@@ -1,12 +1,12 @@
 class ConditionsController < ApplicationController
-  before_action :set_condition, only: [:show, :edit, :update, :destroy]
+  before_action :set_condition, only: [:show, :edit, :destroy]
   before_action :set_airlines, only: [:edit, :new]
+  before_filter :clean_condition_or_promotion, except: [:new, :create]
+
 
   # GET /conditions
   # GET /conditions.json
   def index
-    Promotion.delete_all(condition_id: nil)
-    Condition.delete_all(airline_id: nil)
     @conditions = Condition.all
   end
 
@@ -23,28 +23,27 @@ class ConditionsController < ApplicationController
     @promotions = []
   end
 
-  # GET /conditions/1/edit
-  def edit
-    @promotions = @condition.promotions
-    @render_hidden_input = true
-  end
-
   # POST /conditions
   # POST /conditions.json
   def create
     condition_service = ServiceCondition.new(condition_params)
     @condition = condition_service.add_complete_data_to_condition
     respond_to do |format|
-      if @condition.save
+      if @condition.valid?
         format.html { redirect_to @condition, notice: 'La condicion se ha creado con exito.' }
       else
-        # p @condition.errors
         @airline = Airline.find(condition_params[:airline]) unless condition_params[:airline].blank?
         @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
-        @promotions = Promotion.find(params[:promotions].to_a.flatten.uniq)
+        @promotions = Promotion.all.where(condition_id: @condition.id)
         format.html { render :new }
       end
     end
+  end
+  
+  # GET /conditions/1/edit
+  def edit
+    @promotions = @condition.promotions
+    @render_hidden_input = true
   end
 
   # PATCH/PUT /conditions/1
@@ -53,12 +52,12 @@ class ConditionsController < ApplicationController
     condition_service = ServiceCondition.new(condition_params)
     @condition = condition_service.add_complete_data_to_condition(true)
     respond_to do |format|
-      if @condition.save
+      if @condition.valid?
         format.html { redirect_to @condition, notice: 'La condicion se actualizado con exito.' }
       else
-        @airline = Airline.find(condition_params[:airline]) unless condition_params[:airline].blank?
+        @airline = @condition.airline
         @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
-        @promotions = Promotion.find(params[:promotions].to_a.flatten.uniq)
+        @promotions = Promotion.all.where(condition_id: @condition.id)
         format.html { render :edit }
       end
     end
@@ -88,4 +87,9 @@ class ConditionsController < ApplicationController
     def condition_params
       params.require(:condition)
     end
+
+    def clean_condition_or_promotion
+        Promotion.delete_all(condition_id: nil)
+        Condition.delete_all(airline_id: nil)
+    end 
 end

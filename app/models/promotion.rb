@@ -21,10 +21,17 @@ class Promotion
   validate :format_of_quota
   validate :format_of_bin
 
+  # sd = start_date, ed= end_date
+  def between_dates(sd, es)
+    return true if self.start_date < sd || self.start_date > es || self.end_date > es
+    return false
+  end
+
   private
     def dates
-      errors.add(:dates, "La fecha de inicio debe ser anterior a la fecha de fin") if self.start_date < Date.today || self.start_date > self.end_date ||  self.end_date < Date.today
+      errors.add(:dates, "La fecha de inicio debe ser anterior a la fecha de fin") if self.start_date > self.end_date
     end
+    
     def bank_or_credit_card_not_nil
       errors.add(:bank_or_credit_card, "Debe seleccionar un banco y/o una tarjeta de credito. ") if self.bank.nil? && self.credit_card.nil?
     end
@@ -36,4 +43,5 @@ class Promotion
     def format_of_bin
       errors.add(:bin, "Los bin deben ser tipo 4442, 4455, etc. ") unless /[^0-9\,]/.match(self.bin.delete(' ')).nil?      
     end
+
 end
