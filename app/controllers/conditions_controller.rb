@@ -7,7 +7,7 @@ class ConditionsController < ApplicationController
   # GET /conditions
   # GET /conditions.json
   def index
-    @conditions = Condition.all
+    @conditions = Condition.all.order(created_at: :desc)
   end
 
   # GET /conditions/1
@@ -29,7 +29,7 @@ class ConditionsController < ApplicationController
     condition_service = ServiceCondition.new(condition_params)
     @condition = condition_service.add_complete_data_to_condition
     respond_to do |format|
-      if @condition.valid?
+      if @condition.save
         format.html { redirect_to @condition, notice: 'La condicion se ha creado con exito.' }
       else
         @airline = Airline.find(condition_params[:airline]) unless condition_params[:airline].blank?

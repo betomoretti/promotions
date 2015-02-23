@@ -8,14 +8,14 @@
 <%= form_for(@condition, url: conditions_path, html: { method: "post" }  ) do |f| %>
 
   <% if @condition.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@condition.errors.count, "error") %> prohibited this condition from being saved:</h2>
+    <div id="error_explanation" class="alert alert-danger" role="alert">
+      <h2>No se ha podido guardar por los siguientes errores:</h2>
 
-      <ul>
-      <% @condition.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      
+      <% @condition.errors.values.each do |message| %>
+        <%= message %>
       <% end %>
-      </ul>
+      
     </div>
   <% end %>
     <input type="hidden" name="condition[id]" value="<%= @condition.id%>">
@@ -94,25 +94,23 @@
   $('.datepicker').datepicker({
     language: 'es',
     format: 'yyyy-mm-dd',
-    todayHighlight: true,
-    startDate: "today"  
+    todayHighlight: true
   });
 
-  formmodified=0;
+  var formmodified=0;
   
   $('.edit_condition').change(function(){
     formmodified=1;
   });   
   
-  $(window).bind('beforeunload', function(e){      
-    return exit();
-  });
-
-  function exit () {
-    if (formmodified == 1) {
-      return "Hay cambios que no se han guardado. Se perderan si confirma dejar el formulario.";
+  $(document).on("page:before-change", function () {
+    if ( formmodified == 1 ) {
+      if (confirm("Hay cambios que no se han guardado. Se perderan si confirma dejar el formulario.")) {
+        $(document).unbind("page:before-change");
+      }
     }
-  }
+  });
+  
   $("input[name='commit']").click(function() {
     formmodified = 0;
   });

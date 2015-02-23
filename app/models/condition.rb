@@ -3,6 +3,7 @@ class Condition
     include Mongoid::ActiveRecordBridge
     include Mongoid::Timestamps
 
+    field :shortname, type: String
     field :start_date, type: Date
     field :end_date, type: Date
     field :legal_description, type: String
@@ -26,19 +27,19 @@ class Condition
 
     private
         def dates
-            errors.add(:dates, "La fecha de inicio debe ser anterior a la fecha de fin") if self.start_date > self.end_date
+            errors.add(:dates, "La fecha de inicio debe ser anterior a la fecha de fin.") if self.start_date > self.end_date
         end
 
         def airline_val
-            errors.add(:airline, "Debe seleccionar una aerolinea") if self.airline.blank?
+            errors.add(:airline, "Debe seleccionar una aerolinea.") if self.airline.blank?
         end
 
         def promotions_rel
-            errors.add(:promotions, "Debe crear al menos una promocion") if self.promotions.blank?
+            errors.add(:promotions, "Debe crear al menos una promocion.") if self.promotions.blank?
         end
 
         def promotions_dates
-            errors.add(:promotions, "Las fechas de las promociones deben estar dentro del rango de fechas de la condicion") if self.validate_dates_of_my_promotions
+            errors.add(:promotions, "Las fechas de las promociones deben estar dentro del rango de fechas de la condicion.") if self.validate_dates_of_my_promotions
         end
 
         

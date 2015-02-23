@@ -15,7 +15,6 @@ class Promotion
   validates_presence_of :start_date, message: "Debe seleccionar una fecha de inicio"
   validates_presence_of :end_date, message: "Debe seleccionar una fecha de fin"  
   validates :quota, :presence => {:message => 'Debe ingresar cuotas. '}
-  validates :bin, :presence => {:message => 'Debe ingresar bins. '}
   validate :bank_or_credit_card_not_nil
   validate :dates, unless: "start_date.nil? || end_date.nil?"
   validate :format_of_quota

@@ -35,7 +35,7 @@
   <div class="form-group">
     <%= f.label "Bins", :class => 'control-label col-lg-2' %>
     <div class="col-lg-5">
-      <%= f.text_field :bin, :placeholder => "Ej: 1234, 5678", :required => true, :class => 'form-control' %>
+      <%= f.text_field :bin, :placeholder => "Ej: 1234, 5678", :class => 'form-control' %>
     </div>
   </div>
 
@@ -62,7 +62,6 @@
   $('.datepicker').datepicker({
     language: 'es',
     format: 'yyyy-mm-dd',
-    todayHighlight: true,
-    startDate: "today"
+    todayHighlight: true
   });
 </script>

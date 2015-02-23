@@ -6,18 +6,18 @@ es:
     application:
       root: "Index"
     pages:
-      pages: "Pages"
+      pages: "Paginas"
   helpers:
-    actions: "Actions"
+    actions: "Acciones"
     links:
-      back: "Back"
-      cancel: "Cancel"
-      confirm: "Are you sure?"
-      destroy: "Delete"
-      new: "New"
-      edit: "Edit"
+      back: "Volver"
+      cancel: "Cancelar"
+      confirm: "Esta seguro?"
+      destroy: "Borrar"
+      new: "Nuevo"
+      edit: "Editar"
     titles:
-      edit: "Edit %{model}"
-      save: "Save %{model}"
-      new: "New %{model}"
-      delete: "Delete %{model}"
+      edit: "Editar %{model}"
+      save: "Guardar %{model}"
+      new: "Nuevo %{model}"
+      delete: "Borrar %{model}"

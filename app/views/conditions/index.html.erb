@@ -7,7 +7,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Descripcion legal</th>
+      <th>Nombre</th>
       <th>Fecha de inicio</th>
       <th>Fecha de fin</th>
       <th colspan="3">Acciones</th>
@@ -17,7 +17,7 @@
   <tbody>
     <% @conditions.each do |condition| %>
       <tr>
-        <td><%= condition.legal_description %></td>
+        <td><%= condition.shortname %></td>
         <td><%= condition.start_date %></td>
         <td><%= condition.end_date %></td>
         <td>

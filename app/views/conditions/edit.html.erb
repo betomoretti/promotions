@@ -8,7 +8,7 @@
 <%= form_for(@condition) do |f| %>
 
   <% if @condition.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-danger" role="alert">
       <h2><%= pluralize(@condition.errors.count, "error") %> prohibited this condition from being saved:</h2>
 
       <ul>
@@ -54,7 +54,7 @@
     </div>
     <div class="col-md-12">
       <div id="table">
-        <%= render partial: "promotions/list", locals: {promotions: @promotions} %>        
+        <%= render partial: "promotions/list", locals: {condition: @condition, promotions: @promotions} %>        
       </div>
     </div>
     <!-- <div class="row"> -->
@@ -92,7 +92,24 @@
   $('.datepicker').datepicker({
     language: 'es',
     format: 'yyyy-mm-dd',
-    todayHighlight: true,
-    startDate: "today"
+    todayHighlight: true
+  });
+
+  var formmodified=0;
+  
+  $('.edit_condition').change(function(){
+    formmodified=1;
+  });   
+  
+  $(document).on("page:before-change", function () {
+    if ( formmodified == 1 ) {
+      if (confirm("Hay cambios que no se han guardado. Se perderan si confirma dejar el formulario.")) {
+        $(document).unbind("page:before-change");
+      }
+    }
+  });
+  
+  $("input[name='commit']").click(function() {
+    formmodified = 0;
   });
 </script>
