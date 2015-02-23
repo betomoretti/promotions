@@ -54,3 +54,5 @@ gem 'unicorn'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'rubycas-client', :git => 'git://github.com/rubycas/rubycas-client.git'
+

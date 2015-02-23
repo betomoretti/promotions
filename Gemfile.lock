@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/rubycas/rubycas-client.git
+  revision: 195a4b70333029be474b0ac70efdc85bd4288861
+  specs:
+    rubycas-client (2.3.10.rc1)
+      activesupport
+
+GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
   revision: b701e23e91bd2726af5bc669b87f7f34efc96ab1
   specs:
@@ -174,6 +181,7 @@ DEPENDENCIES
   mysql2 (~> 0.3.16)
   rack-mini-profiler
   rails (= 4.1.4)
+  rubycas-client!
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   select2-rails
