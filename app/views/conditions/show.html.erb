@@ -1,19 +1,36 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1>Condiciones</h1>
+</div>
+<p>
+  <strong>Nombre:</strong>
+  <%= @condition.shortname %>
+</p>
+<p>
+  <strong>Aerolinea:</strong>
+  <%= @condition.airline.name %>
+</p>
 
 <p>
-  <strong>Legal description:</strong>
+  <strong>Descripcion legal:</strong>
   <%= @condition.legal_description %>
 </p>
 
 <p>
-  <strong>Start date:</strong>
-  <%= @condition.start_date %>
+  <strong>Fecha de creacion:</strong>
+  <%= @condition.created_at.strftime("%d/%m/%Y") %>
 </p>
 
 <p>
-  <strong>End date:</strong>
-  <%= @condition.end_date %>
+  <strong>Fecha de inicio:</strong>
+  <%= @condition.start_date.strftime("%d/%m/%Y") %>
 </p>
 
-<%= link_to 'Edit', edit_condition_path(@condition) %> |
-<%= link_to 'Back', conditions_path %>
+<p>
+  <strong>Fecha de fin:</strong>
+  <%= @condition.end_date.strftime("%d/%m/%Y") %>
+</p>
+
+<%= render partial: "promotions/list", locals: {promotions: @promotions} %>        
+
+<%= link_to 'Volver al listado', conditions_path, :class => "btn btn-default btn-xs" %>
+<%= link_to 'Editar', edit_condition_path(@condition), :class => "btn btn-default btn-xs" %> 

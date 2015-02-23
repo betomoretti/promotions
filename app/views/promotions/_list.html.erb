@@ -1,11 +1,14 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">
-    <div>Promociones<div style="float:right">
-        <button type="button" id="button_new_promotion" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
+    <div>Promociones
+    <% if params[:action] != "show" %>
+      <div style="float:right">
+        <button type="button" id="button_new_promotion" data-condition="<%= condition.id %>" class="btn btn-primary btn-xs button-new-promotion" data-toggle="modal" data-target="#myModal">
           Nueva Promocion
-        </button>
+      </button>
       </div>
+      <% end %>
     </div>
   </div>
   
@@ -13,32 +16,53 @@
   <table id="promotions_table" class="table">
     <thead>
       <tr>
+        <th>Fecha de inicio</th>
+        <th>Fecha de fin</th>
         <th>Cuota</th>
         <th>Bin</th>
         <th>Banco</th>
         <th>Tarjeta</th>
-        <th>Acciones</th>
+        <th>Activa</th>
+        <% if params[:action] != "show" %>
+          <th>Acciones</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
       <% @promotions.each do |promotion| %>
-        <tr >
+        <tr id="<%= promotion.id%>">
+          <td><%= promotion.start_date %></td>
+          <td><%= promotion.end_date %></td>
           <td><%= promotion.quota %></td>
           <td><%= promotion.bin %></td>
           <td><%= promotion.bank.name unless promotion.bank.nil? %></td>
           <td><%= promotion.credit_card.name unless promotion.credit_card.nil? %></td>
+          <% if promotion.active %>
+            <td><i class="fa fa-check fa-lg"></i></td>
+          <% else %>
+            <td><i class="fa fa-times fa-lg"></i></td>
+          <% end %>
           <td>
-            <%= link_to "Editar",
-                        edit_promotion_path(promotion), :class => 'btn btn-default btn-xs', :data => {:promotion => promotion.id} %>
-            <%= link_to "Eliminar",
-                        promotion_path(promotion),
-                        :method => :delete,
-                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :promotion => promotion.id },
-                        :class => 'btn btn-xs btn-danger' %>
+            <% if params[:action] != "show" %>
+              <% if promotion.active %>
+                <button type="button" class="btn btn-warning btn-xs button-disable-promotion" data-action="/disable" data-promotion="<%= promotion.id%>" data-message="Esta seguro de deshabilitar esta promocion?">
+                  Deshabitilar
+                </button>                
+              <% else %>
+                <button type="button" class="btn btn-success btn-xs button-enable-promotion" data-action="/enable" data-promotion="<%= promotion.id%>" data-message="Esta seguro de habilitar esta promocion?">
+                  Habitilar
+                </button>
+              <% end %>
+              <button type="button" class="btn btn-primary btn-xs button-edit-promotion" data-promotion="<%= promotion.id%>">
+                Editar
+              </button>
+              <button type="button" class="btn btn-xs btn-danger button-delete-promotion" data-promotion="<%= promotion.id%>">
+                Eliminar
+              </button>
+            <% end %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
-

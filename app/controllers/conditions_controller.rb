@@ -1,26 +1,26 @@
 class ConditionsController < ApplicationController
-  before_action :set_condition, only: [:show, :edit, :update, :destroy]
+  before_action :set_condition, only: [:show, :edit, :destroy]
+  before_action :set_airlines, only: [:edit, :new]
+  before_filter :clean_condition_or_promotion, except: [:new, :create]
+
 
   # GET /conditions
   # GET /conditions.json
   def index
-    @conditions = Condition.all
+    @conditions = Condition.all.order(created_at: :desc)
   end
 
   # GET /conditions/1
   # GET /conditions/1.json
   def show
+    @promotions = @condition.promotions
   end
 
   # GET /conditions/new
   def new
     @condition = Condition.new
-    @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
+    @condition.save(:validate => false)
     @promotions = []
-  end
-
-  # GET /conditions/1/edit
-  def edit
   end
 
   # POST /conditions
@@ -30,25 +30,35 @@ class ConditionsController < ApplicationController
     @condition = condition_service.add_complete_data_to_condition
     respond_to do |format|
       if @condition.save
-        format.html { redirect_to @condition, notice: 'Condition was successfully created.' }
-        format.json { render :show, status: :created, location: @condition }
+        format.html { redirect_to @condition, notice: 'La condicion se ha creado con exito.' }
       else
+        @airline = Airline.find(condition_params[:airline]) unless condition_params[:airline].blank?
+        @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
+        @promotions = Promotion.all.where(condition_id: @condition.id)
         format.html { render :new }
-        format.json { render json: @condition.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  # GET /conditions/1/edit
+  def edit
+    @promotions = @condition.promotions
+    @render_hidden_input = true
   end
 
   # PATCH/PUT /conditions/1
   # PATCH/PUT /conditions/1.json
   def update
+    condition_service = ServiceCondition.new(condition_params)
+    @condition = condition_service.add_complete_data_to_condition(true)
     respond_to do |format|
-      if @condition.update(condition_params)
-        format.html { redirect_to @condition, notice: 'Condition was successfully updated.' }
-        format.json { render :show, status: :ok, location: @condition }
+      if @condition.valid?
+        format.html { redirect_to @condition, notice: 'La condicion se actualizado con exito.' }
       else
+        @airline = @condition.airline
+        @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
+        @promotions = Promotion.all.where(condition_id: @condition.id)
         format.html { render :edit }
-        format.json { render json: @condition.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -69,8 +79,17 @@ class ConditionsController < ApplicationController
       @condition = Condition.find(params[:id])
     end
 
+    def set_airlines
+      @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def condition_params
-      params.require(:condition).permit(:legal_description, :start_date, :end_date)
+      params.require(:condition)
     end
+
+    def clean_condition_or_promotion
+        Promotion.delete_all(condition_id: nil)
+        Condition.delete_all(airline_id: nil)
+    end 
 end

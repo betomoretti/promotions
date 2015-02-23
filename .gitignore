@@ -14,3 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+#Databases config files
+/config/database.yml
+/config/mongoid.yml

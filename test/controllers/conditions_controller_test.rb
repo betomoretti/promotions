@@ -7,7 +7,7 @@ class ConditionsControllerTest < ActionController::TestCase
       start_date: Date.today(),
       end_date: Date.today()+30,
       legal_description: "Descripcion legal",
-      promotions: [ Promotion.create( bin: "4656,3340", quota: "3 y 6", bank: Bank.create(name: "Galicia") , credit_card: CreditCard.create(name:"Visa", quantity_digits: 15, quantity_code_security: 3, bin_start: 4542) ), Promotion.create( bin: "4656,3340", quota: "3 y 6", bank: Bank.create(name: "City bank") ), Promotion.create( bin: "4656,3340", quota: "3 y 6", credit_card: CreditCard.create(name:"Amex", quantity_digits: 16, quantity_code_security: 4, bin_start: 4542) ) ]
+      promotions: [ Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today() , end_date: Date.today()+40, bank: Bank.create(name: "Galicia") , credit_card: CreditCard.create(name:"Visa", quantity_digits: 15, quantity_code_security: 3, bin_start: 4542) ), Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today() , end_date: Date.today()+40, bank: Bank.create(name: "City bank") ), Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today() , end_date: Date.today()+40, credit_card: CreditCard.create(name:"Amex", quantity_digits: 16, quantity_code_security: 4, bin_start: 4542) ) ]
       )
   end
 
@@ -24,17 +24,42 @@ class ConditionsControllerTest < ActionController::TestCase
 
   test "should create condition" do
     promotions = [
-      Promotion.create( bin: "4656,3340", quota: "3 y 6", bank: Bank.create(name: "Galicia") , credit_card: CreditCard.create(name:"Visa", quantity_digits: 15, quantity_code_security: 3, bin_start: 4542) ),
-      Promotion.create( bin: "4656,3340", quota: "3 y 6", bank: Bank.create(name: "City bank") ),
-      Promotion.create( bin: "4656,3340", quota: "3 y 6", credit_card: CreditCard.create(name:"Amex", quantity_digits: 16, quantity_code_security: 4, bin_start: 4542) )
+      Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today() , end_date: Date.today()+40 , bank: Bank.create(name: "Galicia") , credit_card: CreditCard.create(name:"Visa", quantity_digits: 15, quantity_code_security: 3, bin_start: 4542) ).id,
+      Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today() , end_date: Date.today()+40 , bank: Bank.create(name: "City bank") ).id,
+      Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today() , end_date: Date.today()+40 , credit_card: CreditCard.create(name:"Amex", quantity_digits: 16, quantity_code_security: 4, bin_start: 4542) ).id
     ]
-    airline = Airline.first
+    airline_id = Airline.first.id
     assert_difference('Condition.count') do
-      post :create, condition: { airline: airline, start_date: Date.today() , end_date: Date.today()+40 ,  legal_description: "Descripcion legal", promotions: promotions }
+      condition = Condition.new
+      condition.save(:validate => false)
+      post :create, condition: {id: condition.id,airline: airline_id, start_date: Date.today() , end_date: Date.today()+40 ,  legal_description: "Descripcion legal", promotions: promotions }
     end
     assert_redirected_to condition_path(assigns(:condition))
   end
 
+  test "shouldn't create condition without promotions" do
+    promotions = []
+    airline_id = Airline.first.id
+    condition = Condition.new
+    condition.save(:validate => false)
+    post :create, condition: {id: condition.id,airline: airline_id, start_date: Date.today() , end_date: Date.today()+40 ,  legal_description: "Descripcion legal", promotions: promotions }
+    assert_template("conditions/new")
+  end
+
+  test "shouldn't create condition without dates" do
+    promotions = [
+      Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today() , end_date: Date.today()+40 , bank: Bank.create(name: "Galicia") , credit_card: CreditCard.create(name:"Visa", quantity_digits: 15, quantity_code_security: 3, bin_start: 4542) ).id,
+      Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today() , end_date: Date.today()+40 , bank: Bank.create(name: "City bank") ).id,
+      Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today() , end_date: Date.today()+40 , credit_card: CreditCard.create(name:"Amex", quantity_digits: 16, quantity_code_security: 4, bin_start: 4542) ).id
+    ]
+    airline_id = Airline.first.id
+    assert_difference('Condition.count') do
+      condition = Condition.new
+      condition.save(:validate => false)
+      post :create, condition: {id: condition.id,airline: airline_id, start_date: nil , end_date: nil ,  legal_description: "Descripcion legal", promotions: promotions }
+    end
+    assert_template("conditions/new")
+  end
 
   test "should show condition" do
     get :show, id: @condition
@@ -47,7 +72,15 @@ class ConditionsControllerTest < ActionController::TestCase
   end
 
   test "should update condition" do
-    patch :update, id: @condition, condition: { end_date: @condition.end_date, legal_description: @condition.legal_description, start_date: @condition.start_date }
+    promotions = [
+      Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today() , end_date: Date.today()+40 , bank: Bank.create(name: "Galicia") , credit_card: CreditCard.create(name:"Visa", quantity_digits: 15, quantity_code_security: 3, bin_start: 4542) ).id,
+      Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today() , end_date: Date.today()+40 , bank: Bank.create(name: "City bank") ).id,
+    ]
+    airline_id = Airline.last.id
+    assert_difference('Promotion.count', -1) do #Chequea que le quite una promocion a la condicion
+      patch :update, id: @condition, condition: { id: @condition.id ,airline: airline_id, end_date: @condition.end_date, legal_description: @condition.legal_description, start_date: @condition.start_date,  legal_description: "Descripcion legal", promotions: promotions }
+    end
+    
     assert_redirected_to condition_path(assigns(:condition))
   end
 

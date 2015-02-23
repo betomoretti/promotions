@@ -5,8 +5,9 @@ group :test, :development do
   gem 'meta_request'
   gem 'rack-mini-profiler'
   gem 'better_errors'
-  gem 'awesome_print'
 end
+
+gem 'awesome_print'
 
 gem 'database_cleaner', '~> 1.4.0'
 
@@ -15,7 +16,7 @@ gem 'select2-rails'
 
 gem 'mongoid'
 gem 'mongoid-tree', '~> 2.0.0'
-
+gem 'jquery-turbolinks'
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '~> 0.3.16'
 
@@ -46,7 +47,7 @@ gem 'spring',        group: :development
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-gem 'unicorn'
+gem 'unicorn-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
