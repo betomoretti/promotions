@@ -51,6 +51,8 @@
             <li><%= link_to "Bancos", banks_path  %></li>
             <li><%= link_to "Aerolineas", airlines_path  %></li>
           </ul>
+
+          <p class="navbar-text navbar-right"><a href="#" class="navbar-link"><%= @current_user.name_and_surname %></a></p>
         </div>
       </div>
     </div>
@@ -70,9 +72,7 @@
         <div class="col-lg-1">
         </div>
         <div class="col-lg-10">
-          <footer>
-            <p>Usuario: <%= @current_user.name_and_surname%></p>
-          </footer>
+          <footer></footer>
         </div>
         <div class="col-lg-1">
         </div><!--/span-->
