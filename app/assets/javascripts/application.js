@@ -13,9 +13,8 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery.mask
 //= require twitter/bootstrap
-//= require bootstrap-datepicker
-//= require locales/bootstrap-datepicker.es
 //= require spin.min
 //= require select2
 //= require select2_locale_es
