@@ -2,6 +2,7 @@
   $(document).ready(function() { 
     $("#promotion_bank_id").select2({allowClear: true,placeholder: 'Seleccione un banco'});
     $("#promotion_credit_card_id").select2({allowClear: true,placeholder: 'Seleccione una tarjeta'});
+    $('.date').mask("00/00/0000", {placeholder: "__/__/____"});
   });
 </script>
 
@@ -10,13 +11,13 @@
   <div class="form-group">
     <%= f.label "Fecha de inicio", :class => 'control-label col-lg-2' %>
     <div class="col-lg-5">
-      <%= f.text_field :start_date, :required => true, :class => 'form-control datepicker' %>
+      <%= f.text_field :start_date, :required => true, :class => 'form-control date' %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label "Fecha de fin", :class => 'control-label col-lg-2' %>
     <div class="col-lg-5">
-      <%= f.text_field :end_date, :required => true, :class => 'form-control datepicker' %>
+      <%= f.text_field :end_date, :required => true, :class => 'form-control date' %>
     </div>
   </div>
   <div class="form-group">

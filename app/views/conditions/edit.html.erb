@@ -2,6 +2,7 @@
 <script>
   $(document).ready(function() { 
     $("#condition_airline_id").select2();
+    $('.date').mask("00/00/0000", {placeholder: "__/__/____"});
   });
 </script>
 
@@ -32,7 +33,7 @@
       <div class="control-group">
         <%= f.label "Fecha de inicio", :class => 'control-label' %>
         <div class="controls">
-          <%= f.text_field :start_date, :required => true, :class => 'form-control datepicker' %>
+          <%= f.text_field :start_date, :required => true, :class => 'form-control date' %>
         </div>
       </div>
     </div>
@@ -40,7 +41,7 @@
       <div class="control-group">
         <%= f.label "Fecha de fin", :class => 'control-label' %>
         <div class="controls">
-          <%= f.text_field :end_date, :required => true, :class => 'form-control datepicker' %>
+          <%= f.text_field :end_date, :required => true, :class => 'form-control date' %>
         </div>
       </div>
     </div>
