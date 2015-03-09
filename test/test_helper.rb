@@ -25,7 +25,7 @@ class ActiveSupport::TestCase
         end
 
         def initialiaze_promotion
-            @promotion = Promotion.create(quota: "3, 6, y 12", bin: "2312,3434,2345", legal_description: "Descripcion legal" )
+            @promotion = Promotion.create(quota: "3, 6, y 12", bin: "2312,3434,2345" )
             @bank = Bank.create(name: "Galicia")
             @credit_card = CreditCard.create(name:"Visa", quantity_digits: 15, quantity_code_security: 3, bin_start: 4542)
             @promotion.bank = @bank

@@ -7,6 +7,8 @@ group :test, :development do
   gem 'better_errors'
 end
 
+gem 'quiet_assets', group: :development
+
 gem 'awesome_print'
 
 gem 'database_cleaner', '~> 1.4.0'

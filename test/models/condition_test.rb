@@ -11,10 +11,46 @@ class ConditionTest < ActiveSupport::TestCase
     end
 
     test "validate dates" do
-        assert Condition.create(start_date: Date.today(), end_date: Date.today()+30, airline_id: Airline.first).persisted?  
-        assert_not Condition.create(start_date: Date.today()+30, end_date: Date.today(), airline_id: Airline.first).persisted?
-        assert_not Condition.create(start_date: Date.today(), end_date: Date.today(), airline_id: Airline.first).persisted?
-        assert_not Condition.create(start_date: Date.today()-20, end_date: Date.today()+30, airline_id: Airline.first).persisted?
-        assert_not Condition.create(start_date: Date.today(), end_date: Date.today()-30, airline_id: Airline.first).persisted?  
+        bank = Bank.create(name: "City bank")
+        assert Condition.new(
+            airline: Airline.first,
+            active: true,
+            start_date: Date.today()-20,
+            end_date: Date.today()+100,
+            legal_description: "Descripcion legal",
+            promotions: [ 
+                Promotion.create(start_date: Date.today()+1, end_date: Date.today()+40,quota: "3, 6, y 12", active: true, bin: "2312,3434,2345", bank: bank ), 
+                Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today()+1 , end_date: Date.today()+40, bank:  bank), 
+                Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today()+1 , end_date: Date.today()+40, bank:  bank)
+            ]
+        ).save
+        assert_not Condition.new(
+            airline: Airline.first,
+            active: true,
+            start_date: Date.today(),
+            end_date: Date.today()-2,
+            legal_description: "Descripcion legal",
+            promotions: [ 
+                Promotion.create(start_date: Date.today()+1, end_date: Date.today()+40,quota: "3, 6, y 12", active: true, bin: "2312,3434,2345", bank: bank ), 
+                Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today()+1 , end_date: Date.today()+40, bank:  bank), 
+                Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today()+1 , end_date: Date.today()+40, bank:  bank)
+            ]
+        ).save
+    end
+
+    test "shouldn't save condition with bad dates in promotions" do
+        bank = Bank.create(name: "City bank")
+        assert_not Condition.new(
+            airline: Airline.first,
+            active: true,
+            start_date: Date.today()-20,
+            end_date: Date.today()+100,
+            legal_description: "Descripcion legal",
+            promotions: [ 
+                Promotion.create(start_date: Date.today()-25, end_date: Date.today()+40,quota: "3, 6, y 12", active: true, bin: "2312,3434,2345", bank: bank ), 
+                Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today()+1 , end_date: Date.today()+102, bank:  bank), 
+                Promotion.create( bin: "4656,3340", quota: "3 y 6", start_date: Date.today()+1 , end_date: Date.today()+40, bank:  bank)
+            ]
+        ).save
     end
 end
