@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   resources :credit_cards, :banks, :conditions
   resources :promotions, except: [:index, :show]
+  resources :coefficients, except: [:index, :show]
   resources :airlines, only: :index
 
 

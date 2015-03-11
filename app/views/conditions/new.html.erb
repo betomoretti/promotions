@@ -59,17 +59,18 @@
       <div id="table">
         <%= render partial: "promotions/list", locals: {condition: @condition, promotions: @promotions} %>        
       </div>
+      <!-- <div id="table">
+        <%# render partial: "coefficients/list", locals: {condition: @condition, promotions: @coefficients} %>        
+      </div> -->
     </div>
-    <!-- <div class="row"> -->
-      <div class="col-md-12"> 
-        <div class="control-group">
-            <%= f.label "Descripcion legal", :class => 'control-label' %>
-            <div class="controls">
-              <%= f.text_area :legal_description, :class => 'form-control text-area-legal-description' %>
-            </div>
-        </div>
+    <div class="col-md-12"> 
+      <div class="control-group">
+          <%= f.label "Descripcion legal", :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_area :legal_description, :class => 'form-control text-area-legal-description' %>
+          </div>
       </div>
-    <!-- </div> -->
+    </div>
     <div class="col-md-3">
       <div class="actions">
         <%= f.submit "Crear condicion",:class => 'btn btn-primary' %>
