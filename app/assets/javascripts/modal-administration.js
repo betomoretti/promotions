@@ -21,6 +21,7 @@ function spin_opts() {
 
 function call_forms(url, condition){
   var spinner = new Spinner(opts);
+  var url = url; 
   $.ajax({
     type: 'GET',
     url: url,
@@ -29,10 +30,21 @@ function call_forms(url, condition){
     },
     success: function(data) {
       $('#myModal div.modal-dialog div.modal-content div.modal-body').append(data);
+      if (url == "/promotions/new") {
+        $('form#new_promotion').append('<input type="hidden" name="promotion[condition_id]" value="'+condition+'">');
+        $('#myModal div.modal-dialog').addClass('modal-promotion');
+      }else{
+        $('form#new_coefficient').append('<input type="hidden" name="coefficient[condition_id]" value="'+condition+'">');
+        $('#myModal div.modal-dialog').addClass('modal-coefficient');
+      }
       $('#myModal').modal('show');
-      $('form#new_promotion').append('<input type="hidden" name="promotion[condition_id]" value="'+condition+'">');
       $('#myModal').on('hidden.bs.modal', function (e) {
         $("#myModal div.modal-dialog div.modal-content div.modal-body").empty();
+        if (url = "/promotions/new") {
+          $('#myModal div.modal-dialog').removeClass('modal-promotion');
+        }else{
+          $('#myModal div.modal-dialog').removeClass('modal-coefficient');
+        }
       });
     },
     complete: function() {
@@ -61,6 +73,10 @@ $(document).ready(function() {
   opts = spin_opts();
   $('body').on('click','.button-new-promotion', function(){
     call_forms("/promotions/new", $(this).attr('data-condition'));
+  });
+
+  $('body').on('click','.button-new-coefficient', function(){
+    call_forms("/coefficients/new", $(this).attr('data-condition'));
   });
 
   $('body').on('click','.button-edit-promotion', function(){

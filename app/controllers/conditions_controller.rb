@@ -1,8 +1,6 @@
 class ConditionsController < ApplicationController
   before_action :set_condition, only: [:show, :edit, :destroy]
   before_action :set_airlines, only: [:edit, :new]
-  before_filter :clean_condition_or_promotion, except: [:new, :create]
-
 
   # GET /conditions
   # GET /conditions.json
@@ -21,6 +19,7 @@ class ConditionsController < ApplicationController
     @condition = Condition.new
     @condition.save(:validate => false)
     @promotions = []
+    @coefficients = []    
   end
 
   # POST /conditions
@@ -43,6 +42,7 @@ class ConditionsController < ApplicationController
   # GET /conditions/1/edit
   def edit
     @promotions = @condition.promotions
+    @coefficients = @condition.coefficients
     @render_hidden_input = true
   end
 
@@ -88,8 +88,4 @@ class ConditionsController < ApplicationController
       params.require(:condition)
     end
 
-    def clean_condition_or_promotion
-        Promotion.delete_all(condition_id: nil)
-        Condition.delete_all(airline_id: nil)
-    end 
 end

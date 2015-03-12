@@ -1,0 +1,48 @@
+<script>
+  $(document).ready(function() { 
+    $("#coefficient_credit_card_id").select2({allowClear: true,placeholder: 'Seleccione una tarjeta'});
+    $('.date').mask("00/00/0000", {placeholder: "__/__/____"});
+  });
+</script>
+
+<%= form_for(@coefficient, :html => { :class => @coefficient.new_record? ? 'form-inline coefficient' : 'form-inline coefficient coefficient-edit-form'}, data: {id: !@coefficient.new_record? ? @coefficient.id : ''}) do |f| %>
+  <div id="errors" role="alert"><p></p></div>
+  <div class="row">
+    <div class="col-xs-3">
+      <div class="input-group"> 
+        <%= f.text_field :start_date, :required => true, :class => 'form-control date' %>
+      </div>
+    </div>
+    <div class="col-xs-3">
+      <div class="input-group"> 
+        <%= f.text_field :end_date, :required => true, :class => 'form-control date' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-1">
+        <div class="input-group"> 
+          <%= f.check_box :active, :class => 'form-control' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-2">
+      <div class="input-group"> 
+        <%= f.text_field :quota, :placeholder => "Cuota", :required => true, :class => 'form-control' %>
+      </div>
+    </div>
+    <div class="col-xs-2">
+      <div class="input-group"> 
+        <%= f.text_field :value, :placeholder => "Valor", :required => true, :class => 'form-control' %>
+      </div>
+    </div>
+    <div class="col-xs-3">
+      <%= select(:coefficient, :credit_card_id, @credit_cards, { include_blank: true }, :class => 'form-control') %>
+    </div>   
+  </div>
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit @coefficient.new_record? ? 'Crear' : 'Editar', :id => 'send_coefficient_form', :class => 'btn btn-primary' %>
+    </div>
+  </div>
+
+<% end %>

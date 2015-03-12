@@ -7,7 +7,7 @@ class ActiveSupport::TestCase
     # Add more helper methods to be used by all tests here...
 
     def teardown
-        DatabaseCleaner[:mongoid, {:connection => :promotions_test}].clean_with(:truncation)
+        # DatabaseCleaner[:mongoid, {:connection => :promotions_test}].clean_with(:truncation)
     end
 
     private

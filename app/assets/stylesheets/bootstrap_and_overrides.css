@@ -19,3 +19,10 @@ input {
     max-width: 945px;    
 }
 
+body .modal-coefficient {
+    width: 900px;
+}
+
+body .modal-promotion {
+    width: 600px;
+}

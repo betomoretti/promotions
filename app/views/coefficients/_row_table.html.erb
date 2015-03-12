@@ -1,0 +1,33 @@
+<tr id="<%= promotion.id%>">
+  <td><%= promotion.start_date %></td>
+  <td><%= promotion.end_date %></td>
+  <td><%= promotion.quota %></td>
+  <td><%= promotion.bin %></td>
+  <td><%= promotion.bank.name unless promotion.bank.nil? %></td>
+  <td><%= promotion.credit_card.name unless promotion.credit_card.nil? %></td>
+  <% if promotion.active %>
+    <td><i class="fa fa-check fa-lg"></i></td>
+  <% else %>
+    <td><i class="fa fa-times fa-lg"></i></td>
+  <% end %>
+  <td>
+    <% if promotion.active %>
+        <button type="button" class="btn btn-warning btn-xs button-disable-promotion" data-action="/disable" data-promotion="<%= promotion.id%>" data-message="Esta seguro de deshabilitar esta promocion?">
+          Deshabitilar
+        </button>                
+      <% else %>
+        <button type="button" class="btn btn-success btn-xs button-enable-promotion" data-action="/enable" data-promotion="<%= promotion.id%>" data-message="Esta seguro de habilitar esta promocion?">
+          Habitilar
+        </button>
+      <% end %>
+    <button type="button" class="btn btn-primary btn-xs button-edit-promotion" data-promotion="<%= promotion.id%>">
+      Editar
+    </button>
+    <button type="button" class="btn btn-xs btn-danger button-delete-promotion" data-promotion="<%= promotion.id%>">
+      Eliminar
+    </button>
+  </td>
+  <% if @render_hidden_input %>
+    <input type="hidden" name="condition[promotions][<%= promotion.id%>]" value="<%= promotion.id%>">
+  <% end %>
+</tr>
