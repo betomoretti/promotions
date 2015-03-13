@@ -40,8 +40,8 @@ class ConditionsController < ApplicationController
   
   # GET /conditions/1/edit
   def edit
-    @condition.start_date = @condition.start_date.strftime("%d/%m/%Y")
-    @condition.end_date = @condition.end_date.strftime("%d/%m/%Y")
+    @condition.start_date = @condition.start_date.strftime("%d/%m/%Y") unless @condition.start_date.nil?
+    @condition.end_date = @condition.end_date.strftime("%d/%m/%Y") unless @condition.end_date.nil?
     @promotions = @condition.promotions
     @render_hidden_input = true
   end
