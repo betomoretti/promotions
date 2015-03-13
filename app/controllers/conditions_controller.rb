@@ -1,8 +1,6 @@
 class ConditionsController < ApplicationController
   before_action :set_condition, only: [:show, :edit, :destroy]
   before_action :set_airlines, only: [:edit, :new]
-  before_filter :clean_condition_or_promotion, except: [:new, :create]
-
 
   # GET /conditions
   # GET /conditions.json
@@ -42,6 +40,8 @@ class ConditionsController < ApplicationController
   
   # GET /conditions/1/edit
   def edit
+    @condition.start_date = @condition.start_date.strftime("%d/%m/%Y")
+    @condition.end_date = @condition.end_date.strftime("%d/%m/%Y")
     @promotions = @condition.promotions
     @render_hidden_input = true
   end
@@ -50,9 +50,10 @@ class ConditionsController < ApplicationController
   # PATCH/PUT /conditions/1.json
   def update
     condition_service = ServiceCondition.new(condition_params)
-    @condition = condition_service.add_complete_data_to_condition(true)
+    @condition = condition_service.add_complete_data_to_condition()
     respond_to do |format|
       if @condition.valid?
+        @condition.save
         format.html { redirect_to @condition, notice: 'La condicion se actualizado con exito.' }
       else
         @airline = @condition.airline
@@ -68,7 +69,7 @@ class ConditionsController < ApplicationController
   def destroy
     @condition.destroy
     respond_to do |format|
-      format.html { redirect_to conditions_url, notice: 'Condition was successfully destroyed.' }
+      format.html { redirect_to conditions_url, notice: 'La condicion ha sido eliminada con exito' }
       format.json { head :no_content }
     end
   end
@@ -87,9 +88,4 @@ class ConditionsController < ApplicationController
     def condition_params
       params.require(:condition)
     end
-
-    def clean_condition_or_promotion
-        Promotion.delete_all(condition_id: nil)
-        Condition.delete_all(airline_id: nil)
-    end 
 end

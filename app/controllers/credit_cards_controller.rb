@@ -28,7 +28,7 @@ class CreditCardsController < ApplicationController
 
     respond_to do |format|
       if @credit_card.save
-        format.html { redirect_to @credit_card, notice: 'Credit card was successfully created.' }
+        format.html { redirect_to @credit_card, notice: 'La tarjeta de credito ha sido creada exitosamente.' }
         format.json { render :show, status: :created, location: @credit_card }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class CreditCardsController < ApplicationController
   def update
     respond_to do |format|
       if @credit_card.update(credit_card_params)
-        format.html { redirect_to @credit_card, notice: 'Credit card was successfully updated.' }
+        format.html { redirect_to @credit_card, notice: 'La tarjeta de credito ha sido editada exitosamente.' }
         format.json { render :show, status: :ok, location: @credit_card }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class CreditCardsController < ApplicationController
   def destroy
     @credit_card.destroy
     respond_to do |format|
-      format.html { redirect_to credit_cards_url, notice: 'Credit card was successfully destroyed.' }
+      format.html { redirect_to credit_cards_url, notice: 'La tarjeta de credito ha sido eliminada exitosamente.' }
       format.json { head :no_content }
     end
   end

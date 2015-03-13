@@ -34,6 +34,8 @@ class PromotionsController < ApplicationController
 
   # GET /promotions/1/edit
   def edit
+    @promotion.start_date = @promotion.start_date.strftime("%d/%m/%Y")
+    @promotion.end_date = @promotion.end_date.strftime("%d/%m/%Y")
     render layout: false
   end
 
