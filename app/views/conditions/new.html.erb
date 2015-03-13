@@ -92,27 +92,4 @@
     <%= link_to 'Volver', conditions_path, :class => "btn btn-default"%>
 </div>
 <script type="text/javascript">
-  $('.datepicker').datepicker({
-    language: 'es',
-    format: 'yyyy-mm-dd',
-    todayHighlight: true
-  });
-
-  var formmodified=0;
-  
-  $('.edit_condition').change(function(){
-    formmodified=1;
-  });   
-  
-  $(document).on("page:before-change", function () {
-    if ( formmodified == 1 ) {
-      if (confirm("Hay cambios que no se han guardado. Se perderan si confirma dejar el formulario.")) {
-        $(document).unbind("page:before-change");
-      }
-    }
-  });
-  
-  $("input[name='commit']").click(function() {
-    formmodified = 0;
-  });
 </script>

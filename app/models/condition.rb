@@ -4,8 +4,8 @@ class Condition
     include Mongoid::Timestamps
 
     field :shortname, type: String
-    field :start_date, type: Date
-    field :end_date, type: Date
+    field :start_date, type: DateTime
+    field :end_date, type: DateTime
     field :legal_description, type: String
     field :active, type: Boolean
 
@@ -14,9 +14,9 @@ class Condition
     
     validates_presence_of :start_date
     validates_presence_of :end_date
-    validate :dates, unless: "start_date.nil? || end_date.nil?"
+    # validate :dates, unless: "start_date.nil? || end_date.nil?"
     validate :promotions_rel
-    validate :promotions_dates, unless: "promotions.blank?"
+    # validate :promotions_dates, unless: "promotions.blank?"
 
     def validate_dates_of_my_promotions
         self.promotions.each do |promotion| 

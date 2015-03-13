@@ -12,8 +12,8 @@ class Promotion
   belongs_to :credit_card
   belongs_to :condition
 
-  validates_presence_of :start_date, message: "Debe seleccionar una fecha de inicio"
-  validates_presence_of :end_date, message: "Debe seleccionar una fecha de fin"  
+  validates_presence_of :start_date, message: "Debe seleccionar una fecha de inicio. "
+  validates_presence_of :end_date, message: "Debe seleccionar una fecha de fin. "  
   validates :quota, :presence => {:message => 'Debe ingresar cuotas. '}
   validate :bank_or_credit_card_not_nil
   validate :dates, unless: "start_date.nil? || end_date.nil?"
