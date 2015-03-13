@@ -50,9 +50,10 @@ class ConditionsController < ApplicationController
   # PATCH/PUT /conditions/1.json
   def update
     condition_service = ServiceCondition.new(condition_params)
-    @condition = condition_service.add_complete_data_to_condition(true)
+    @condition = condition_service.add_complete_data_to_condition()
     respond_to do |format|
       if @condition.valid?
+        @condition.save
         format.html { redirect_to @condition, notice: 'La condicion se actualizado con exito.' }
       else
         @airline = @condition.airline
@@ -68,7 +69,7 @@ class ConditionsController < ApplicationController
   def destroy
     @condition.destroy
     respond_to do |format|
-      format.html { redirect_to conditions_url, notice: 'Condition was successfully destroyed.' }
+      format.html { redirect_to conditions_url, notice: 'La condicion ha sido eliminada con exito' }
       format.json { head :no_content }
     end
   end

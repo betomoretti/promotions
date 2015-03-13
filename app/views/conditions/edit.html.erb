@@ -2,7 +2,7 @@
 <script>
   $(document).ready(function() { 
     $("#condition_airline_id").select2();
-    $('.date').mask("00/00/0000", {placeholder: "00/00/0000"});
+    $('.date').mask("00/00/0000", {placeholder: "__/__/____"});
   });
 </script>
 
@@ -10,13 +10,11 @@
 
   <% if @condition.errors.any? %>
     <div id="error_explanation" class="alert alert-danger" role="alert">
-      <h2><%= pluralize(@condition.errors.count, "error") %> prohibited this condition from being saved:</h2>
-
-      <ul>
-      <% @condition.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <% @condition.errors.messages.each do |message| %>
+        <% message[1].each do |text_message| %>
+          <%= text_message %>
+        <% end %>
       <% end %>
-      </ul>
     </div>
   <% end %>
   <input type="hidden" name="condition[id]" value="<%= @condition.id%>">

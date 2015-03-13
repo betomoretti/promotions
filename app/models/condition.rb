@@ -14,9 +14,16 @@ class Condition
     
     validates_presence_of :start_date
     validates_presence_of :end_date
-    # validate :dates, unless: "start_date.nil? || end_date.nil?"
-    validate :promotions_rel
+    validate :dates, unless: "start_date.nil? || end_date.nil?"
+    # validate :promotions_rel
     # validate :promotions_dates, unless: "promotions.blank?"
+
+    def have_promotions
+        if self.promotions.empty?
+            return false        
+        end
+        return true
+    end
 
     def validate_dates_of_my_promotions
         self.promotions.each do |promotion| 

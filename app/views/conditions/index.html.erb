@@ -16,13 +16,14 @@
 
   <tbody>
     <% @conditions.each do |condition| %>
+      <% delete_message = if condition.have_promotions then 'Esta condicion tiene promociones, esta seguro que desea eliminarla? ' else 'Esta seguro de eliminar esta condicion?' end %>
       <tr>
         <td><%= condition.shortname %></td>
         <td><%= condition.start_date.strftime("%d/%m/%Y") unless condition.start_date.nil? %></td>
         <td><%= condition.end_date.strftime("%d/%m/%Y") unless condition.start_date.nil? %></td>
         <td>
           <%= link_to 'Editar', edit_condition_path(condition),:class => 'btn btn-default btn-xs' %>
-          <%= link_to 'Eliminar', condition, method: :delete, data: { confirm: 'Esta seguro de eliminar esta condicion?' }, :class => 'btn btn-xs btn-danger' %>
+          <%= link_to 'Eliminar', condition, method: :delete, data: { confirm: delete_message }, :class => 'btn btn-xs btn-danger' %>
         </td>
       </tr>
     <% end %>
