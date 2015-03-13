@@ -1,6 +1,6 @@
 <tr id="<%= promotion.id%>">
-  <td><%= promotion.start_date %></td>
-  <td><%= promotion.end_date %></td>
+  <td><%= promotion.start_date.strftime("%d/%m/%Y") %></td>
+  <td><%= promotion.end_date.strftime("%d/%m/%Y") %></td>
   <td><%= promotion.quota %></td>
   <td><%= promotion.bin %></td>
   <td><%= promotion.bank.name unless promotion.bank.nil? %></td>
