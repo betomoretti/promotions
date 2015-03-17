@@ -5,7 +5,9 @@ class PromotionsController < ApplicationController
   # GET /promotions/new
   def new
     @promotion = Promotion.new
-    render layout: false
+    @promotion.start_date = params[:start_date] unless params[:start_date].blank?
+    @promotion.end_date = params[:end_date] unless params[:end_date].blank?
+    render layout: false 
   end
   
   # PATCH /promotions/1/enable
