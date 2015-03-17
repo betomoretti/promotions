@@ -41,7 +41,7 @@ class Promotion
     end
 
     def format_of_bin
-      errors.add(:bin, "Los bin deben ser tipo 4442, 4455, etc. ") unless /[^0-9\,]/.match(self.bin.delete(' ')).nil?      
+      errors.add(:bin, "Los bin deben ser tipo 4442, 4455, 5520-5540 etc. ") unless /[^0-9\,-]/.match(self.bin.delete(' ')).nil?      
     end
 
 end
