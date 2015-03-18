@@ -22,9 +22,17 @@ function spin_opts() {
 function call_forms(url, condition){
   var spinner = new Spinner(opts);
   var url = url; 
+  values = "";
+  if (url == "/promotions/new") {
+    values = {
+      start_date: $("#condition_start_date").val() ,
+      end_date: $("#condition_end_date").val()
+    }
+  }
   $.ajax({
     type: 'GET',
     url: url,
+    data: values,
     beforeSend: function() {
       spinner.spin(document.getElementById('modal-spin'));
     },

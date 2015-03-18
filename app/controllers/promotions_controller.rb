@@ -5,7 +5,9 @@ class PromotionsController < ApplicationController
   # GET /promotions/new
   def new
     @promotion = Promotion.new
-    render layout: false
+    @promotion.start_date = params[:start_date] unless params[:start_date].blank?
+    @promotion.end_date = params[:end_date] unless params[:end_date].blank?
+    render layout: false 
   end
   
   # PATCH /promotions/1/enable
@@ -88,6 +90,6 @@ class PromotionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def promotion_params
-      params.require(:promotion).permit(:condition_id, :quota, :bin, :bank_id, :credit_card_id, :start_date, :end_date, :active)
+      params.require(:promotion).permit(:condition_id, :quota, :bin, :bank_id, :credit_card_id, :start_date, :end_date, :observations, :active)
     end
 end
