@@ -23,7 +23,7 @@ function call_forms(url, condition){
   var spinner = new Spinner(opts);
   var url = url; 
   values = "";
-  if (url == "/promotions/new") {
+  if (url == "/promotions/new" || url == "/coefficients/new") {
     values = {
       start_date: $("#condition_start_date").val() ,
       end_date: $("#condition_end_date").val()
@@ -61,15 +61,21 @@ function call_forms(url, condition){
   });
 }
 
-function change_state_of_promotion(promotion, action) {
+function change_state(what_do, resource, action) {
+  if (what_do == "promotions") {
+    var url = "/promotions/"+resource+action
+  }else{
+    var url = "/coefficients/"+resource+action
+  }
+
   $.ajax({
-    url: "/promotions/"+promotion+action,  
+    url: url,  
     type: "PATCH",
     beforeSend: function(){
     // spinner.spin(document.getElementById('modal-spin'));
     },
     success: function(result){
-      $('#'+promotion).replaceWith(result);
+      $('#'+resource).replaceWith(result);
     },
     complete: function(){
     // spinner.stop(document.getElementById('modal-spin'));
@@ -91,12 +97,24 @@ $(document).ready(function() {
     call_forms("/promotions/"+$(this).attr('data-promotion')+"/edit", $(this).attr('data-condition'));
   });
 
+  $('body').on('click','.button-edit-coefficient', function(){
+    call_forms("/coefficients/"+$(this).attr('data-coefficient')+"/edit", $(this).attr('data-condition'));
+  });
+
   $('body').on('click', '.button-enable-promotion,.button-disable-promotion', function (e) {
       e.preventDefault(); // stops default behavior
       if ( confirm($(this).attr('data-message')) ) {
-          change_state_of_promotion($(this).attr('data-promotion'), $(this).attr('data-action'))
+          change_state("promotions", $(this).attr('data-promotion'), $(this).attr('data-action'))
       }
   });
+
+  $('body').on('click', '.button-enable-coefficient,.button-disable-coefficient', function (e) {
+      e.preventDefault(); // stops default behavior
+      if ( confirm($(this).attr('data-message')) ) {
+          change_state("coefficients",$(this).attr('data-coefficient'), $(this).attr('data-action'))
+      }
+  });
+
   $('body').on('click', '.button-delete-promotion', function (e) {
       e.preventDefault(); // stops default behavior
       if ( confirm("Esta seguro de eliminar esta promocion?") ) {
@@ -108,6 +126,25 @@ $(document).ready(function() {
               },
               success: function(result){
                   $('#'+$('.button-delete-promotion').attr('data-promotion')).remove();
+              },
+              complete: function(){
+              // spinner.stop(document.getElementById('modal-spin'));
+              }
+          });  
+      }
+  });
+
+  $('body').on('click', '.button-delete-coefficient', function (e) {
+      e.preventDefault(); // stops default behavior
+      if ( confirm("Esta seguro de eliminar esta coeficiente?") ) {
+          $.ajax({
+              url: "/coefficients/"+$(this).attr('data-coefficient'),  
+              type: "DELETE",
+              beforeSend: function(){
+              // spinner.spin(document.getElementById('modal-spin'));
+              },
+              success: function(result){
+                  $('#'+$('.button-delete-coefficient').attr('data-coefficient')).remove();
               },
               complete: function(){
               // spinner.stop(document.getElementById('modal-spin'));

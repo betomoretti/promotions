@@ -1,24 +1,27 @@
 <div class="page-header">
-  <h1>Nuevo coeficiente</h1>
+  <h1>Nuevo coeficiente</h1><button class="btn btn-primary btn-row-coefficient">Agregar fila</button>
 </div>
 <%= render :partial => 'form' %>
 <script>
     $(document).ready(function() {
         var spinner = new Spinner(opts);
+        
         $('#new_coefficient').on('submit', function(e) {
             e.preventDefault(); // stops default behavior
             data = {};
-            $(this).serializeArray().map(function(x){data[x.name] = x.value;});//Arma el json con los datos del form
+            $(this).serializeArray().map(function(x){
+                data[x.name] = x.value;
+            }); 
             $.ajax({
                 url: $(this).attr('action'),
-                data: data,  
+                data: {},  
                 type: "POST",
                 beforeSend: function(){
                     spinner.spin(document.getElementById('modal-spin'));
                 },
                 success: function(result){
                     $('#myModal').modal('hide');                
-                    $('#promotions_table tbody').append(result);
+                    $('#coefficients_table tbody').append(result);
                 },
                 error: function(xhr,status,error){
                     errors = "";
@@ -32,6 +35,7 @@
                     spinner.stop(document.getElementById('modal-spin'));
                 }
             });
-        });  
+        });
+
     });
 </script>

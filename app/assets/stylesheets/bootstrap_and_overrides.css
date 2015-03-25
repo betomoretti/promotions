@@ -20,9 +20,18 @@ input {
 }
 
 body .modal-coefficient {
-    width: 900px;
+    width: 700px;
 }
 
 body .modal-promotion {
     width: 600px;
+}
+
+.fix-width {
+  width: 100px !important;
+}
+
+.btn-row-coefficient {
+  float:right;
+  margin-top: -45px;
 }

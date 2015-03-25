@@ -18,8 +18,6 @@
       <tr>
         <th>Fecha de inicio</th>
         <th>Fecha de fin</th>
-        <th>Cuota</th>
-        <th>Valor</th>
         <th>Tarjeta</th>
         <th>Activa</th>
         <% if params[:action] != "show" %>
@@ -32,8 +30,6 @@
         <tr id="<%= coefficient.id%>">
           <td><%= coefficient.start_date %></td>
           <td><%= coefficient.end_date %></td>
-          <td><%= coefficient.quota %></td>
-          <td><%= coefficient.value %></td>
           <td><%= coefficient.credit_card.name unless coefficient.credit_card.nil? %></td>
           <% if coefficient.active %>
             <td><i class="fa fa-check fa-lg"></i></td>
@@ -43,11 +39,11 @@
           <td>
             <% if params[:action] != "show" %>
               <% if coefficient.active %>
-                <button type="button" class="btn btn-warning btn-xs button-disable-coefficient" data-action="/disable" data-coefficient="<%= coefficient.id%>" data-message="Esta seguro de deshabilitar esta promocion?">
+                <button type="button" class="btn btn-warning btn-xs button-disable-coefficient" data-action="/disable" data-coefficient="<%= coefficient.id%>" data-message="Esta seguro de deshabilitar este coeficiente?">
                   Deshabitilar
                 </button>                
               <% else %>
-                <button type="button" class="btn btn-success btn-xs button-enable-coefficient" data-action="/enable" data-coefficient="<%= coefficient.id%>" data-message="Esta seguro de habilitar esta promocion?">
+                <button type="button" class="btn btn-success btn-xs button-enable-coefficient" data-action="/enable" data-coefficient="<%= coefficient.id%>" data-message="Esta seguro de habilitar este coeficiente?">
                   Habitilar
                 </button>
               <% end %>

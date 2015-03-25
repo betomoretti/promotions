@@ -8,41 +8,79 @@
 <%= form_for(@coefficient, :html => { :class => @coefficient.new_record? ? 'form-inline coefficient' : 'form-inline coefficient coefficient-edit-form'}, data: {id: !@coefficient.new_record? ? @coefficient.id : ''}) do |f| %>
   <div id="errors" role="alert"><p></p></div>
   <div class="row">
-    <div class="col-xs-3">
-      <div class="input-group"> 
-        <%= f.text_field :start_date, :required => true, :class => 'form-control date' %>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="coefficient_credit_card_id">Tarjeta de credito</label>
+        <%= select(:coefficient, :credit_card_id, @credit_cards, { include_blank: true }, :class => 'form-control') %>
       </div>
     </div>
-    <div class="col-xs-3">
-      <div class="input-group"> 
-        <%= f.text_field :end_date, :required => true, :class => 'form-control date' %>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="coefficient_start_date">Fecha de inicio</label>
+        <%= f.text_field :start_date, :required => true, :class => 'form-control fix-width date' %>
       </div>
     </div>
-    <div class="form-group">
-      <div class="col-xs-1">
-        <div class="input-group"> 
-          <%= f.check_box :active, :class => 'form-control' %>
-        </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="coefficient_end_date">Fecha de fin</label>
+        <%= f.text_field :end_date, :required => true, :class => 'form-control fix-width date' %>
       </div>
     </div>
-    <div class="col-xs-2">
-      <div class="input-group"> 
-        <%= f.text_field :quota, :placeholder => "Cuota", :required => true, :class => 'form-control' %>
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="coefficient_active">Activo</label><br/>
+        <%= f.check_box :active, :class => 'form-control' %>
       </div>
     </div>
-    <div class="col-xs-2">
-      <div class="input-group"> 
-        <%= f.text_field :value, :placeholder => "Valor", :required => true, :class => 'form-control' %>
-      </div>
-    </div>
-    <div class="col-xs-3">
-      <%= select(:coefficient, :credit_card_id, @credit_cards, { include_blank: true }, :class => 'form-control') %>
-    </div>   
   </div>
+  <table id="coefficient-inputs" class="table">
+    <thead>
+      <tr>
+        <td></td>
+        <td>Cuota</td>
+        <td>Valor</td>
+        <td></td>
+        <td>Acciones</td>
+      </tr>
+    </thead>
+    <tbody>
+      <%= f.fields_for :values do |ff| %>
+        <tr>
+          <td><%# ff.hidden_field :id %><%# ff.check_box :_destroy, :style => 'display:none' %></td>
+          <td><%= ff.text_field :quota, :placeholder => "Cuota", :required => true, :class => 'form-control fix-width' %></td>
+          <td><%= ff.text_field :value, :placeholder => "Valor", :required => true, :class => 'form-control fix-width' %></td>
+          <td></td>
+          <td><button class="btn btn-danger btn-delete-row-coefficient">Borrar</button></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
   <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit @coefficient.new_record? ? 'Crear' : 'Editar', :id => 'send_coefficient_form', :class => 'btn btn-primary' %>
+    <div class="col-lg-2 ">
+      <%= f.submit 'Guardar', :id => 'send_coefficient_form', :class => 'btn btn-primary' %>
     </div>
   </div>
 
 <% end %>
+<script text="text/javascript">
+  $(document).ready(function() {
+     
+    $('.btn-row-coefficient').on('click', function () {
+      size = $('table#coefficient-inputs tbody tr').size();
+      console.log(size);
+      var value = '<tr><td><input id="coefficient_values_attributes_'+size+'_id" name="coefficient[values_attributes]['+size+'][id]" value="" type="hidden"><input name="coefficient[values_attributes]['+size+'][_destroy]" value="'+size+'" type="hidden"><input id="coefficient_values_attributes_'+size+'__destroy" name="coefficient[values_attributes]['+size+'][_destroy]" style="display:none" value="1" type="checkbox"></td><td><input class="form-control fix-width" id="coefficient_values_attributes_'+size+'_quota" name="coefficient[values_attributes]['+size+'][quota]" placeholder="Cuota" required="required" type="text"></td><td><input class="form-control fix-width" id="coefficient_values_attributes_'+size+'_value" name="coefficient[values_attributes]['+size+'][value]" placeholder="Valor" required="required" type="text"></td><td></td><td><button class="btn btn-danger btn-delete-row-coefficient">Borrar</button></td></tr>';
+
+      $('table#coefficient-inputs').append(value);
+    });
+
+    $('body').on('click', '.btn-delete-row-coefficient', function () {
+      if ($('#new_coefficient').length == 1) {
+        $(this).parent().parent().remove();
+      } else {
+        tr = $(this).parent().parent();
+        tr.find("input[type=hidden]").attr("value",1);
+        tr.hide();
+      }
+    });
+  });
+</script>
