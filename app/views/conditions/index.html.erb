@@ -17,8 +17,9 @@
   <tbody>
     <% @conditions.each do |condition| %>
       <% delete_message = if condition.have_promotions then 'Esta condicion tiene promociones, esta seguro que desea eliminarla? ' else 'Esta seguro de eliminar esta condicion?' end %>
+      <% link_text = if condition.shortname.blank? then 'Ver' else condition.shortname end %>
       <tr>
-        <td><%= condition.shortname %></td>
+        <td><%= link_to link_text, condition_path(condition) %></td>
         <td><%= condition.start_date.strftime("%d/%m/%Y") unless condition.start_date.nil? %></td>
         <td><%= condition.end_date.strftime("%d/%m/%Y") unless condition.start_date.nil? %></td>
         <td>

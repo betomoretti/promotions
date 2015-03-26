@@ -35,6 +35,7 @@ class ConditionsController < ApplicationController
         @airline = Airline.find(condition_params[:airline]) unless condition_params[:airline].blank?
         @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
         @promotions = Promotion.all.where(condition_id: @condition.id)
+        @coefficients = Coefficient.all.where(condition_id: @condition.id)
         format.html { render :new }
       end
     end

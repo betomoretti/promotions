@@ -16,11 +16,13 @@
 
   <% if @condition.errors.any? %>
     <div id="error_explanation" class="alert alert-danger" role="alert">
-      <% @condition.errors.messages.each do |message| %>
-        <% message[1].each do |text_message| %>
-          <%= text_message %>
-        <% end %>
+      <h2>No se ha podido guardar por los siguientes errores:</h2>
+
+      
+      <% @condition.errors.values.each do |message| %>
+        <%= message %>
       <% end %>
+      
     </div>
   <% end %>
   <input type="hidden" name="condition[id]" value="<%= @condition.id%>">

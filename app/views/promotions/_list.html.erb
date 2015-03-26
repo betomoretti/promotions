@@ -13,15 +13,15 @@
   </div>
   
   <!-- Table -->
-  <table id="promotions_table" class="table">
+  <table style="table-layout: fixed;" id="promotions_table" class="table">
     <thead>
       <tr>
+        <th>Banco</th>
+        <th>Tarjeta</th>
         <th>Fecha de inicio</th>
         <th>Fecha de fin</th>
         <th>Cuota</th>
         <th>Bin</th>
-        <th>Banco</th>
-        <th>Tarjeta</th>
         <th>Activa</th>
         <% if params[:action] != "show" %>
           <th>Acciones</th>
@@ -31,12 +31,12 @@
     <tbody>
       <% @promotions.each do |promotion| %>
         <tr id="<%= promotion.id%>">
+          <td><%= promotion.bank.name unless promotion.bank.nil? %></td>
+          <td><%= promotion.credit_card.name unless promotion.credit_card.nil? %></td>
           <td><%= promotion.start_date.strftime("%d/%m/%Y") %></td>
           <td><%= promotion.end_date.strftime("%d/%m/%Y") %></td>
           <td><%= promotion.quota %></td>
           <td><%= promotion.bin %></td>
-          <td><%= promotion.bank.name unless promotion.bank.nil? %></td>
-          <td><%= promotion.credit_card.name unless promotion.credit_card.nil? %></td>
           <% if promotion.active %>
             <td><i class="fa fa-check fa-lg"></i></td>
           <% else %>

@@ -16,9 +16,9 @@
   <table id="coefficients_table" class="table">
     <thead>
       <tr>
+        <th>Tarjeta</th>
         <th>Fecha de inicio</th>
         <th>Fecha de fin</th>
-        <th>Tarjeta</th>
         <th>Activa</th>
         <% if params[:action] != "show" %>
           <th>Acciones</th>
@@ -28,9 +28,9 @@
     <tbody>
       <% @coefficients.each do |coefficient| %>
         <tr id="<%= coefficient.id%>">
-          <td><%= coefficient.start_date %></td>
-          <td><%= coefficient.end_date %></td>
           <td><%= coefficient.credit_card.name unless coefficient.credit_card.nil? %></td>
+          <td><%= coefficient.start_date.strftime("%d/%m/%Y")  %></td>
+          <td><%= coefficient.end_date.strftime("%d/%m/%Y")  %></td>
           <% if coefficient.active %>
             <td><i class="fa fa-check fa-lg"></i></td>
           <% else %>
