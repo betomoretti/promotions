@@ -3,6 +3,12 @@
   $(document).ready(function() { 
     $("#condition_airline_id").select2();
     $('.date').mask("00/00/0000", {placeholder: "__/__/____"});   
+    Mousetrap.bind('shift+p',function (e) {
+      $('#button_new_promotion').trigger("click");
+    });
+    Mousetrap.bind('shift+c',function (e) {
+      $('#button_new_coefficient').trigger("click");
+    });
   });
 </script>
 

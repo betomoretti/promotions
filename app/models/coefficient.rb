@@ -10,7 +10,7 @@ class Coefficient
   belongs_to :condition
   has_many :values, :dependent => :delete
   
-  accepts_nested_attributes_for :values, :allow_destroy => true
+  accepts_nested_attributes_for :values, :allow_destroy => true, :reject_if => :all_blank
 
   validates_presence_of :start_date, message: "Debe seleccionar una fecha de inicio"
   validates_presence_of :end_date, message: "Debe seleccionar una fecha de fin"  
@@ -20,7 +20,7 @@ class Coefficient
 
   # sd = start_date, ed= end_date
   def between_dates(sd, es)
-    return true if sd < self.start_date && es > self.end_date
+    return true if sd <= self.start_date && es >= self.end_date    
     return false
   end
 

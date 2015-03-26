@@ -14,6 +14,9 @@ input {
     margin-bottom: 20px; 
 }
 
+td { width: 30px; overflow: hidden; }
+table { width : 90px; table-layout: fixed; word-wrap: break-word; }
+
 #condition_legal_description {
     margin-bottom: 20px;
     max-width: 945px;    

@@ -1,8 +1,14 @@
 <script>
   $(document).ready(function() { 
     $("#coefficient_credit_card_id").select2({allowClear: true,placeholder: 'Seleccione una tarjeta'});
-    $('.date').mask("00/00/0000", {placeholder: "__/__/____"});
+    $('.date').mask("00/00/0000", {placeholder: "__/__/____"});   
   });
+  Mousetrap.bind('shift+a',function (e) {
+    $('a.add_fields').trigger("click");
+  });
+  // $(document).bind('keydown', 'shift+a', function (e) {
+  //   $('a.add_fields').trigger("click");
+  // });
 </script>
 
 <%= form_for(@coefficient, :html => { :class => @coefficient.new_record? ? 'form-inline coefficient' : 'form-inline coefficient coefficient-edit-form'}, data: {id: !@coefficient.new_record? ? @coefficient.id : ''}) do |f| %>
@@ -33,6 +39,7 @@
       </div>
     </div>
   </div>
+  <h3>Values</h3>
   <table id="coefficient-inputs" class="table">
     <thead>
       <tr>
@@ -43,16 +50,11 @@
         <td>Acciones</td>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="values">
       <%= f.fields_for :values do |ff| %>
-        <tr>
-          <td><%# ff.hidden_field :id %><%# ff.check_box :_destroy, :style => 'display:none' %></td>
-          <td><%= ff.text_field :quota, :placeholder => "Cuota", :required => true, :class => 'form-control fix-width' %></td>
-          <td><%= ff.text_field :value, :placeholder => "Valor", :required => true, :class => 'form-control fix-width' %></td>
-          <td></td>
-          <td><button class="btn btn-danger btn-delete-row-coefficient">Borrar</button></td>
-        </tr>
-      <% end %>
+        <%= render partial: "value_fields", locals: { f: ff } %>
+      <% end %> 
+      <%= link_to_add_association 'Agregar', f, :values, 'data-association-insertion-node' => "tbody#values", 'data-association-insertion-method' => "append", :class => "btn btn-primary" %>
     </tbody>
   </table>
   <div class="form-group">
@@ -63,24 +65,5 @@
 
 <% end %>
 <script text="text/javascript">
-  $(document).ready(function() {
-     
-    $('.btn-row-coefficient').on('click', function () {
-      size = $('table#coefficient-inputs tbody tr').size();
-      console.log(size);
-      var value = '<tr><td><input id="coefficient_values_attributes_'+size+'_id" name="coefficient[values_attributes]['+size+'][id]" value="" type="hidden"><input name="coefficient[values_attributes]['+size+'][_destroy]" value="'+size+'" type="hidden"><input id="coefficient_values_attributes_'+size+'__destroy" name="coefficient[values_attributes]['+size+'][_destroy]" style="display:none" value="1" type="checkbox"></td><td><input class="form-control fix-width" id="coefficient_values_attributes_'+size+'_quota" name="coefficient[values_attributes]['+size+'][quota]" placeholder="Cuota" required="required" type="text"></td><td><input class="form-control fix-width" id="coefficient_values_attributes_'+size+'_value" name="coefficient[values_attributes]['+size+'][value]" placeholder="Valor" required="required" type="text"></td><td></td><td><button class="btn btn-danger btn-delete-row-coefficient">Borrar</button></td></tr>';
-
-      $('table#coefficient-inputs').append(value);
-    });
-
-    $('body').on('click', '.btn-delete-row-coefficient', function () {
-      if ($('#new_coefficient').length == 1) {
-        $(this).parent().parent().remove();
-      } else {
-        tr = $(this).parent().parent();
-        tr.find("input[type=hidden]").attr("value",1);
-        tr.hide();
-      }
-    });
-  });
+  
 </script>

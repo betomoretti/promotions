@@ -30,7 +30,8 @@
   <%= @condition.end_date.strftime("%d/%m/%Y") %>
 </p>
 
-<%= render partial: "promotions/list", locals: {promotions: @promotions} %>        
+<%= render partial: "promotions/list", locals: {promotions: @promotions} %> 
+<%= render partial: "coefficients/list", locals: {coefficients: @coefficients} %>        
 
 <%= link_to 'Volver al listado', conditions_path, :class => "btn btn-default btn-xs" %>
 <%= link_to 'Editar', edit_condition_path(@condition), :class => "btn btn-default btn-xs" %> 

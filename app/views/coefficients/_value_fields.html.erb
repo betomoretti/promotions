@@ -1,0 +1,7 @@
+<tr class="nested-fields">
+  <td></td>
+  <td><%= f.text_field :quota, :placeholder => "Cuota", :required => true, :class => 'form-control fix-width' %></td>
+  <td><%= f.text_field :value, :placeholder => "Valor", :required => true, :class => 'form-control fix-width' %></td>
+  <td></td>
+  <td><%= link_to_remove_association 'Borrar', f, :class => "btn btn-danger" %></td>
+</tr>

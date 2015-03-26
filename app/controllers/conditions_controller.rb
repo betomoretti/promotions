@@ -12,6 +12,7 @@ class ConditionsController < ApplicationController
   # GET /conditions/1.json
   def show
     @promotions = @condition.promotions
+    @coefficients = @condition.coefficients
   end
 
   # GET /conditions/new
@@ -61,6 +62,7 @@ class ConditionsController < ApplicationController
         @airline = @condition.airline
         @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
         @promotions = Promotion.all.where(condition_id: @condition.id)
+        @coefficients = Coefficient.all.where(condition_id: @condition.id)
         format.html { render :edit }
       end
     end

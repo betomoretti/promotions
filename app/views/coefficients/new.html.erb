@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>Nuevo coeficiente</h1><button class="btn btn-primary btn-row-coefficient">Agregar fila</button>
+  <h1>Nuevo coeficiente</h1><!-- <button class="btn btn-primary btn-row-coefficient">Agregar fila</button> -->
 </div>
 <%= render :partial => 'form' %>
 <script>
@@ -9,12 +9,12 @@
         $('#new_coefficient').on('submit', function(e) {
             e.preventDefault(); // stops default behavior
             data = {};
-            $(this).serializeArray().map(function(x){
-                data[x.name] = x.value;
-            }); 
+            // $(this).serializeArray().map(function(x){
+            //     data[x.name] = x.value;
+            // }); 
             $.ajax({
                 url: $(this).attr('action'),
-                data: {},  
+                data: $.param($('#new_coefficient').serializeArray()),  
                 type: "POST",
                 beforeSend: function(){
                     spinner.spin(document.getElementById('modal-spin'));

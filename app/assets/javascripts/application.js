@@ -14,7 +14,9 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.mask
+//= require mousetrap.min
 //= require twitter/bootstrap
+//= require cocoon
 //= require spin.min
 //= require select2
 //= require select2_locale_es

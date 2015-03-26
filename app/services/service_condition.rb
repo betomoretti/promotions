@@ -1,6 +1,6 @@
 class ServiceCondition
     include ActiveModel::Model
-    attr_accessor :id,:airline_id,:legal_description, :active, :start_date, :end_date, :promotions
+    attr_accessor :id,:airline_id,:legal_description, :active, :start_date, :end_date, :promotions, :coefficients
     
     def add_complete_data_to_condition()
         condition = Condition.find(self.id)

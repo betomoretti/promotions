@@ -18,6 +18,7 @@ class Condition
     validate :dates, unless: "start_date.nil? || end_date.nil?"
     
     validate :promotions_rel
+    validate :coefficients_rel
     validate :promotions_dates, unless: "promotions.blank?"
     validate :coefficients_dates, unless: "coefficients.blank?"
     
@@ -53,6 +54,10 @@ class Condition
 
         def promotions_rel
             errors.add(:promotions, "Debe crear al menos una promocion.") if self.promotions.blank?
+        end
+
+        def coefficients_rel
+            errors.add(:coefficients, "Debe crear al menos un coeficiente.") if self.coefficients.blank?
         end
 
         def promotions_dates

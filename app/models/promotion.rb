@@ -23,7 +23,7 @@ class Promotion
 
   # sd = start_date, ed= end_date
   def between_dates(sd, es)
-    return true if sd < self.start_date && es > self.end_date
+    return true if sd <= self.start_date && es >= self.end_date
     return false
   end
 
