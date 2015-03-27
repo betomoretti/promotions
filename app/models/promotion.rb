@@ -4,6 +4,7 @@ class Promotion
 
   field :quota, type: String
   field :bin, type: String
+  field :comerce_number, type: String
   field :observations, type: String
   field :start_date, type: Date
   field :end_date, type: Date

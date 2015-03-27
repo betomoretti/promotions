@@ -22,6 +22,7 @@
         <th>Fecha de fin</th>
         <th>Cuota</th>
         <th>Bin</th>
+        <th>Numero de comercio</th>
         <th>Activa</th>
         <% if params[:action] != "show" %>
           <th>Acciones</th>
@@ -37,6 +38,7 @@
           <td><%= promotion.end_date.strftime("%d/%m/%Y") %></td>
           <td><%= promotion.quota %></td>
           <td><%= promotion.bin %></td>
+          <td><%= promotion.comerce_number %></td>
           <% if promotion.active %>
             <td><i class="fa fa-check fa-lg"></i></td>
           <% else %>

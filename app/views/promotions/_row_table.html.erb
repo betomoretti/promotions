@@ -1,10 +1,11 @@
 <tr id="<%= promotion.id%>">
+  <td><%= promotion.bank.name unless promotion.bank.nil? %></td>
+  <td><%= promotion.credit_card.name unless promotion.credit_card.nil? %></td>
   <td><%= promotion.start_date.strftime("%d/%m/%Y") %></td>
   <td><%= promotion.end_date.strftime("%d/%m/%Y") %></td>
   <td><%= promotion.quota %></td>
   <td><%= promotion.bin %></td>
-  <td><%= promotion.bank.name unless promotion.bank.nil? %></td>
-  <td><%= promotion.credit_card.name unless promotion.credit_card.nil? %></td>
+  <td><%= promotion.comerce_number %></td>
   <% if promotion.active %>
     <td><i class="fa fa-check fa-lg"></i></td>
   <% else %>

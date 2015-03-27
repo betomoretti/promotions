@@ -34,6 +34,13 @@
     </div>
   </div>
   <div class="form-group">
+    <%= f.label "Numero de comercio", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-5">
+      <%= f.text_field :comerce_number, :class => 'form-control' %>
+      
+    </div>
+  </div>
+  <div class="form-group">
     <%= f.label "Bins", :class => 'control-label col-lg-2' %>
     <div class="col-lg-5">
       <%= f.text_area :bin, :placeholder => "Ej: 1234, 5678", :class => 'form-control' %>
