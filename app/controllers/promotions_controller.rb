@@ -1,5 +1,5 @@
 class PromotionsController < ApplicationController
-  before_action :set_promotion, only: [:edit, :update, :destroy, :enable, :disable]
+  before_action :set_promotion, only: [:edit, :update, :destroy, :enable, :disable, :clone]
   before_action :set_banks_credit_cards, only: [:new, :edit]
 
   # GET /promotions/new
@@ -10,6 +10,19 @@ class PromotionsController < ApplicationController
     render layout: false 
   end
   
+  # POST /promotions/1/clone
+  def clone
+    @promotion = @promotion.clone
+    respond_to do |format|
+      if @promotion.save
+        @render_hidden_input = true if request.xhr?
+        format.html { render :partial => "row_table", :locals => { :promotion => @promotion, :render_hidden_input => @render_hidden_input } }
+      else
+        format.json { render :json => { :errors => @promotion.errors }, :status => 409 }
+      end
+    end
+  end
+
   # PATCH /promotions/1/enable
   def enable
     respond_to do |format|

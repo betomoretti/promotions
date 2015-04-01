@@ -1,5 +1,5 @@
 class CoefficientsController < ApplicationController
-  before_action :set_coefficient, only: [:edit, :update, :destroy, :enable, :disable]
+  before_action :set_coefficient, only: [:edit, :update, :destroy, :enable, :disable, :clone]
   before_action :set_credit_cards, only: [:new, :edit]
 
   # GET /coefficients/new
@@ -7,7 +7,7 @@ class CoefficientsController < ApplicationController
     @coefficient = Coefficient.new
     @coefficient.start_date = params[:start_date] unless params[:start_date].blank?
     @coefficient.end_date = params[:end_date] unless params[:end_date].blank?
-    @coefficient.values = [Value.new]
+    @coefficient.values = [Value.new(quota: "1"),Value.new(quota: "3"),Value.new(quota: "6"),Value.new(quota: "12")]
     render layout: false
   end
   
@@ -16,6 +16,21 @@ class CoefficientsController < ApplicationController
     @coefficient.start_date = @coefficient.start_date.strftime("%d/%m/%Y")
     @coefficient.end_date = @coefficient.end_date.strftime("%d/%m/%Y")
     render layout: false
+  end
+
+  # POST /coefficients/1/clone
+  def clone
+    values = @coefficient.values
+    @coefficient = @coefficient.clone
+    @coefficient.values = values
+    respond_to do |format|
+      if @coefficient.save
+        @render_hidden_input = true if request.xhr?
+        format.html { render :partial => "row_table", :locals => { :coefficient => @coefficient, :render_hidden_input => @render_hidden_input } }
+      else
+        format.json { render :json => { :errors => @coefficient.errors }, :status => 409 }
+      end
+    end
   end
 
   # POST /coefficients

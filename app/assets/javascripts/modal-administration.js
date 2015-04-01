@@ -117,15 +117,17 @@ $(document).ready(function() {
 
   $('body').on('click', '.button-delete-promotion', function (e) {
       e.preventDefault(); // stops default behavior
+      var button = $(this);
+      var id = button.attr('data-promotion');
       if ( confirm("Esta seguro de eliminar esta promocion?") ) {
           $.ajax({
-              url: "/promotions/"+$(this).attr('data-promotion'),  
+              url: "/promotions/"+id,  
               type: "DELETE",
               beforeSend: function(){
               // spinner.spin(document.getElementById('modal-spin'));
               },
               success: function(result){
-                  $('#'+$('.button-delete-promotion').attr('data-promotion')).remove();
+                  $('tr#'+id).remove();
               },
               complete: function(){
               // spinner.stop(document.getElementById('modal-spin'));
@@ -136,22 +138,61 @@ $(document).ready(function() {
 
   $('body').on('click', '.button-delete-coefficient', function (e) {
       e.preventDefault(); // stops default behavior
+      var button = $(this);
+      var id = button.attr('data-coefficient');
       if ( confirm("Esta seguro de eliminar esta coeficiente?") ) {
           $.ajax({
-              url: "/coefficients/"+$(this).attr('data-coefficient'),  
+              url: "/coefficients/"+id,  
               type: "DELETE",
               beforeSend: function(){
               // spinner.spin(document.getElementById('modal-spin'));
               },
               success: function(result){
-                  $('#'+$('.button-delete-coefficient').attr('data-coefficient')).remove();
+                  $('tr#'+id).remove();
               },
               complete: function(){
               // spinner.stop(document.getElementById('modal-spin'));
               }
           });  
       }
-  });  
+  });
+
+  $('body').on('click', '.button-clone-promotion', function (e) {
+      e.preventDefault(); // stops default behavior
+      if ( confirm("Esta seguro de clonar esta promocion?") ) {
+        $.ajax({
+            url: "/promotions/"+$(this).attr('data-promotion')+"/clone",  
+            type: "POST",
+            beforeSend: function(){
+            // spinner.spin(document.getElementById('modal-spin'));
+            },
+            success: function(result){
+              $('#promotions_table tbody').append(result);
+            },
+            complete: function(){
+            // spinner.stop(document.getElementById('modal-spin'));
+            }
+          });  
+      }
+  });
+  $('body').on('click', '.button-clone-coefficient', function (e) {
+      e.preventDefault(); // stops default behavior
+      if ( confirm("Esta seguro de clonar esta coeficiente?") ) {
+        $.ajax({
+          url: "/coefficients/"+$(this).attr('data-coefficient')+"/clone",  
+          type: "POST",
+          beforeSend: function(){
+          // spinner.spin(document.getElementById('modal-spin'));
+          },
+          success: function(result){
+            $('#coefficients_table tbody').append(result);
+          },
+          complete: function(){
+          // spinner.stop(document.getElementById('modal-spin'));
+          }
+        });  
+      }
+  });   
 });
 
 
