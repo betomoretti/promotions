@@ -20,9 +20,11 @@ Rails.application.routes.draw do
 
   patch 'promotions/:id/enable',:to => "promotions#enable"
   patch 'promotions/:id/disable',:to => "promotions#disable"
+  post 'promotions/:id/clone',:to => "promotions#clone"
 
   patch 'coefficients/:id/enable',:to => "coefficients#enable"
   patch 'coefficients/:id/disable',:to => "coefficients#disable"
+  post 'coefficients/:id/clone',:to => "coefficients#clone"
 
   # You can have the root of your site routed with "root"
   root 'conditions#index'

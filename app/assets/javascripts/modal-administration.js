@@ -151,7 +151,44 @@ $(document).ready(function() {
               }
           });  
       }
-  });  
+  });
+
+  $('body').on('click', '.button-clone-promotion', function (e) {
+      e.preventDefault(); // stops default behavior
+      if ( confirm("Esta seguro de clonar esta promocion?") ) {
+        $.ajax({
+            url: "/promotions/"+$(this).attr('data-promotion')+"/clone",  
+            type: "POST",
+            beforeSend: function(){
+            // spinner.spin(document.getElementById('modal-spin'));
+            },
+            success: function(result){
+              $('#promotions_table tbody').append(result);
+            },
+            complete: function(){
+            // spinner.stop(document.getElementById('modal-spin'));
+            }
+          });  
+      }
+  });
+  $('body').on('click', '.button-clone-coefficient', function (e) {
+      e.preventDefault(); // stops default behavior
+      if ( confirm("Esta seguro de clonar esta coeficiente?") ) {
+        $.ajax({
+          url: "/coefficients/"+$(this).attr('data-coefficient')+"/clone",  
+          type: "POST",
+          beforeSend: function(){
+          // spinner.spin(document.getElementById('modal-spin'));
+          },
+          success: function(result){
+            $('#coefficients_table tbody').append(result);
+          },
+          complete: function(){
+          // spinner.stop(document.getElementById('modal-spin'));
+          }
+        });  
+      }
+  });   
 });
 
 

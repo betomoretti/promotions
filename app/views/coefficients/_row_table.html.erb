@@ -1,7 +1,7 @@
 <tr id="<%= coefficient.id%>">
+  <td><%= coefficient.credit_card.name unless coefficient.credit_card.nil? %></td>
   <td><%= coefficient.start_date.strftime("%d/%m/%Y") %></td>
   <td><%= coefficient.end_date.strftime("%d/%m/%Y") %></td>
-  <td><%= coefficient.credit_card.name unless coefficient.credit_card.nil? %></td>
   <% if coefficient.active %>
     <td><i class="fa fa-check fa-lg"></i></td>
   <% else %>
@@ -19,6 +19,9 @@
       <% end %>
     <button type="button" class="btn btn-primary btn-xs button-edit-coefficient" data-coefficient="<%= coefficient.id%>">
       Editar
+    </button>
+    <button type="button" class="btn btn-success btn-xs button-clone-coefficient" data-coefficient="<%= coefficient.id%>">
+      Clonar
     </button>
     <button type="button" class="btn btn-xs btn-danger button-delete-coefficient" data-coefficient="<%= coefficient.id%>">
       Eliminar
