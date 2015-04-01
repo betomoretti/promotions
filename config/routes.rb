@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   resources :coefficients, except: [:index, :show]
   resources :airlines, only: :index
 
+  namespace :api do
+    namespace :v1 do
+      get 'promotions_app/airlines_credit_cards_banks_data'
+    end
+  end
 
   get '/logout' => 'application#logout'
 

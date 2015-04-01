@@ -19,6 +19,7 @@ gem 'select2-rails'
 gem 'mongoid'
 gem 'mongoid-tree', '~> 2.0.0'
 gem 'jquery-turbolinks'
+gem 'rabl-rails'
 gem 'cocoon'
 
 # Use mysql2 as the database for Active Record
