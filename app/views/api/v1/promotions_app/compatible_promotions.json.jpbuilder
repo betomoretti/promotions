@@ -3,32 +3,32 @@ json.promotions @promotions do |promotion|
     if promotion.credit_card.present?
         json.credit_card promotion.credit_card.name 
     else 
-        json.credit_card 'No aplica' 
+        json.credit_card '-' 
     end
     if promotion.bank.present?
         json.bank promotion.bank.name
     else 
-        json.bank 'No aplica'
+        json.bank '-'
     end
     if promotion.condition.present? and promotion.condition.airline.present?            
         json.airline promotion.condition.airline.name 
     else
-        json.airline 'No aplica'
+        json.airline '-'
     end        
     if promotion.quota.present?
         json.quota promotion.quota
     else
-        json.quota 'No aplica'
+        json.quota '-'
     end          
     if promotion.start_date.present?
         json.start_date promotion.start_date 
     else
-        json.start_date 'No aplica'
+        json.start_date '-'
     end
     if promotion.end_date.present?        
         json.end_date promotion.end_date
     else
-        json.end_date 'No aplica'
+        json.end_date '-'
     end          
 end
 
