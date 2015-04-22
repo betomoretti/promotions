@@ -22,6 +22,8 @@ class Condition
     validate :promotions_dates, unless: "promotions.blank?"
     validate :coefficients_dates, unless: "coefficients.blank?"
     
+    scope :by_airline, ->(desired_id) { where(airline_id: desired_id ) }
+
     def have_promotions
         if self.promotions.empty?
             return false        

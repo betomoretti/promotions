@@ -22,6 +22,15 @@ class Promotion
   validate :format_of_quota
   validate :format_of_bin
 
+  scope :by_airline, ->(desired_id) { any_in(condition_id: Condition.by_airline(desired_id).pluck(:id)) if desired_id.present?  }
+  scope :by_credit_card, ->(desired_id) { where(credit_card_id: desired_id ) if desired_id.present? }
+  scope :by_bank, ->(desired_id) { where(bank_id: desired_id ) if desired_id.present? }  
+
+  # def self.by_airline(desired_id)
+  #   # Promotion.where(condition_id: Condition.by_airline(desired_id))  
+  #   where(:condition_id => Condition.by_airline(desired_id))
+  # end
+
   # sd = start_date, ed= end_date
   def between_dates(sd, es)
     return true if sd <= self.start_date && es >= self.end_date

@@ -18,6 +18,11 @@ class Coefficient
   validate :dates, unless: "start_date.nil? || end_date.nil?"
   
 
+  scope :by_airline, ->(desired_id) { any_in(condition_id: Condition.by_airline(desired_id).pluck(:id)) if desired_id.present?  }
+  scope :by_credit_card, ->(desired_id) { where(credit_card_id: desired_id ) if desired_id.present? }
+
+
+
   # sd = start_date, ed= end_date
   def between_dates(sd, es)
     return true if sd <= self.start_date && es >= self.end_date    

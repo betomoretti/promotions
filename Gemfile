@@ -6,6 +6,7 @@ group :test, :development do
   gem 'rack-mini-profiler'
   gem 'better_errors'
 end
+  gem "bullet", :group => "development"  
 
 gem 'quiet_assets', group: :development
 
@@ -42,6 +43,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
+gem 'jpbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
