@@ -17,12 +17,13 @@ class Api::V1::PromotionsAppController < ApplicationController
         @airline_id=params["airline"]
         @credit_card_id=params["credit_card"]
         @bank_id=params["bank"]
+        @cuotas = params["quota"]
     #makes the query only if airline, credit card or bank are specified. Otherwise, it just return all promtions. 
-        form = Api::V1::SearchForm.new(airline_id:@airline_id,credit_card_id:@credit_card_id,bank_id:@bank_id)   
-        if @airline_id == '' && @credit_card_id == '' && @bank_id == ''   
-            @promotions = Promotion.where(:active => true)
+        form = Api::V1::SearchForm.new(airline_id:@airline_id,credit_card_id:@credit_card_id,bank_id:@bank_id, cuotas:@cuotas)  
+        if @airline_id == '' && @credit_card_id == '' && @bank_id == '' && @cuotas == ''  
+            @promotions = Promotion.where(:active => true).where({'end_date' => {'$gte' => Date.today}}).entries
         else           
-            @promotions = form.search_promotions.includes(:bank , :credit_card).entries unless form.search_promotions.blank? 
+            @promotions = form.search_promotions.includes(:bank , :credit_card).where({'end_date' => {'$gte' => Date.today}}).entries unless form.search_promotions.blank? 
         end
     end
 
@@ -56,7 +57,7 @@ class Api::V1::PromotionsAppController < ApplicationController
         @banks = Bank.all        
         # the next lines retrieve the promotions given an airline (or not)
         if @airline_id == ''   
-            @promotions = Promotion.where(:active => true)
+            @promotions = Promotion.where(:active => true).where({'end_date' => {'$gte' => Date.today}})
         else        
             form = Api::V1::SearchForm.new(airline_id:@airline_id)
             @promotions = form.search_promotions.includes(:bank , :credit_card).entries unless form.search_promotions.blank? 

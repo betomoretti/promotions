@@ -9,8 +9,8 @@ class Api::V1::SearchForm
     # end
 
     def search_promotions #search and return promotions given the credit card, airline and bank ids unless theese are not especified
-        if self.airline_id.present? || self.credit_card_id.present? || self.bank_id.present?
-        @promotions=Promotion.where(:active => true).by_credit_card(self.credit_card_id).by_airline(self.airline_id).by_bank(self.bank_id)
+        if self.airline_id.present? || self.credit_card_id.present? || self.bank_id.present? || self.cuotas.present?
+        @promotions=Promotion.where(:active => true).where({'end_date' => {'$gte' => Date.today}}).by_credit_card(self.credit_card_id).by_airline(self.airline_id).by_bank(self.bank_id).by_cuotas(self.cuotas)
         end
     end
 

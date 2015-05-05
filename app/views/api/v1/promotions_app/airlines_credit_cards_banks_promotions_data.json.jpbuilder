@@ -45,4 +45,9 @@ json.promotions @promotions do |promotion|
     else
         json.end_date '-'
     end          
+    if promotion.observations.present?        
+        json.observations promotion.observations
+    else
+        json.observations 'Esta promoción no tiene observaciones'
+    end              
 end

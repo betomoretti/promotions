@@ -69,6 +69,15 @@
   </div>
 
   <div class="form-group">
+    <%= f.label "Observacion B2C", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-8">
+      <%= f.text_area :observationsb2c, :class => 'form-control' %>
+    </div>
+  </div>
+
+
+
+  <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit @promotion.new_record? ? 'Crear' : 'Editar', :id => 'send_promotion_form', :class => 'btn btn-primary' %>
     </div>
