@@ -7,7 +7,7 @@ class CoefficientsController < ApplicationController
     @coefficient = Coefficient.new
     @coefficient.start_date = params[:start_date] unless params[:start_date].blank?
     @coefficient.end_date = params[:end_date] unless params[:end_date].blank?
-    @coefficient.values = [Value.new(quota: "1"),Value.new(quota: "3"),Value.new(quota: "6"),Value.new(quota: "12")]
+    @coefficient.values = [Value.new(quota: "3"),Value.new(quota: "6"),Value.new(quota: "9"),Value.new(quota: "12")]
     render layout: false
   end
   
