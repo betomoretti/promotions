@@ -20,7 +20,7 @@ class CoefficientsController < ApplicationController
 
   # POST /coefficients/1/clone
   def clone
-    values = @coefficient.values
+    values = @coefficient.values.clone # se deben generar tambien values nuevos, ya que cada value apunta a un ùnico coeficiente
     @coefficient = @coefficient.clone
     @coefficient.values = values
     respond_to do |format|
