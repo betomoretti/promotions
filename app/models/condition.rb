@@ -17,7 +17,7 @@ class Condition
     validates_presence_of :end_date
     validate :dates, unless: "start_date.nil? || end_date.nil?"
     
-    validate :promotions_rel
+    # validate :promotions_rel
     validate :coefficients_rel
     validate :promotions_dates, unless: "promotions.blank?"
     validate :coefficients_dates, unless: "coefficients.blank?"
