@@ -16,6 +16,7 @@ class ConditionsController < ApplicationController
   end
 
   # GET /conditions/new
+  # Si se aprieta en nueva condicion y se vuelve para atràs, se crea una condiciòn vacìa. A reparar.
   def new
     @condition = Condition.new
     @condition.save(:validate => false)
@@ -32,6 +33,7 @@ class ConditionsController < ApplicationController
       if @condition.save
         format.html { redirect_to @condition, notice: 'La condicion se ha creado con exito.' }
       else
+        @condition.destroy
         @airline = Airline.find(condition_params[:airline]) unless condition_params[:airline].blank?
         @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
         @promotions = Promotion.all.where(condition_id: @condition.id)
@@ -40,6 +42,31 @@ class ConditionsController < ApplicationController
       end
     end
   end
+
+  # def create
+  #   @condition = Condition.new
+  #   @condition.save(:validate => false)
+  #   p 'manu'
+  #   p condition_params["id"]
+  #   p @condition.id.to_s 
+  #   condition_params["id"]=@condition.id.to_s
+  #   p condition_params
+  #   condition_service = ServiceCondition.new(condition_params)
+  #   @condition = condition_service.add_complete_data_to_condition
+  #   respond_to do |format|
+  #     if @condition.save
+  #       format.html { redirect_to @condition, notice: 'La condicion se ha creado con exito.' }
+  #     else
+  #       @condition.destroy
+  #       @airline = Airline.find(condition_params[:airline]) unless condition_params[:airline].blank?
+  #       @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
+  #       @promotions = Promotion.all.where(condition_id: @condition.id)
+  #       @coefficients = Coefficient.all.where(condition_id: @condition.id)
+  #       format.html { render :new }
+  #     end
+  #   end
+  # end
+
   
   # GET /conditions/1/edit
   def edit
