@@ -33,7 +33,6 @@ class ConditionsController < ApplicationController
       if @condition.save
         format.html { redirect_to @condition, notice: 'La condicion se ha creado con exito.' }
       else
-        @condition.destroy
         @airline = Airline.find(condition_params[:airline]) unless condition_params[:airline].blank?
         @airlines = Airline.all.map { |airline| [airline.name, airline.id] }
         @promotions = Promotion.all.where(condition_id: @condition.id)
