@@ -38,7 +38,7 @@ class Api::V1::PromotionsAppController < ApplicationController
         # this query retrieve the coefficient -> value from the compatible coefficient (first, it should be only one)
         if @coefficients.present?
             if @coefficients.first.values.where(:quota => @cuotas).present? 
-                @result = @coefficients.first.values.where(:quota => @cuotas).entries.first.value * BigDecimal(@monto.to_s)   
+                @result = @coefficients.first.values.where(:quota => @cuotas).entries.first.value.to_s.gsub(',', '.').to_f * BigDecimal(@monto.to_s)   
             end
         end
     end
