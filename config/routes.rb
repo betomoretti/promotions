@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   patch 'promotions/:id/disable',:to => "promotions#disable"
   post 'promotions/:id/clone',:to => "promotions#clone"
 
-  get 'airlines/:id/clone',:to => "airlines#clone"
+  post 'airlines/:id/clone',:to => "airlines#clone"
 
   patch 'coefficients/:id/enable',:to => "coefficients#enable"
   patch 'coefficients/:id/disable',:to => "coefficients#disable"
