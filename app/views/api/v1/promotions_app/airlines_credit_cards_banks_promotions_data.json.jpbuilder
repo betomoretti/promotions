@@ -36,12 +36,14 @@ json.promotions @promotions do |promotion|
         json.quota '-'
     end          
     if promotion.start_date.present?
-        json.start_date promotion.start_date 
+        json.start_date I18n.l promotion.start_date, format: :arg
+
+
     else
         json.start_date '-'
     end
     if promotion.end_date.present?        
-        json.end_date promotion.end_date
+        json.end_date I18n.l promotion.end_date, format: :arg 
     else
         json.end_date '-'
     end          

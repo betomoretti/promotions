@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  resources :credit_cards, :banks, :conditions
+  resources :credit_cards, :banks, :conditions, :airlines
   resources :promotions, except: [:index, :show]
   resources :coefficients, except: [:index, :show]
-  resources :airlines, only: :index
 
   namespace :api do
     namespace :v1 do
@@ -31,6 +30,8 @@ Rails.application.routes.draw do
   patch 'promotions/:id/enable',:to => "promotions#enable"
   patch 'promotions/:id/disable',:to => "promotions#disable"
   post 'promotions/:id/clone',:to => "promotions#clone"
+
+  get 'airlines/:id/clone',:to => "airlines#clone"
 
   patch 'coefficients/:id/enable',:to => "coefficients#enable"
   patch 'coefficients/:id/disable',:to => "coefficients#disable"

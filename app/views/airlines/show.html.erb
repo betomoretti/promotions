@@ -1,18 +1,25 @@
+<%- model_class = Airline -%>
 <div class="page-header">
   <h1>Aerolineas</h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @airline.name %></dd>
+  <dt><strong>Nombre:</strong></dt>
+    <dd><%= @airline.name %></dd>
+  <dt><strong>Iata code:</strong></dt>
+    <dd><%= @airline.iata_code %></dd>
+  <dt><strong>Max edad niños:</strong></dt>
+    <dd><%= @airline.max_age_child %></dd>
+  <dt><strong>Max edad infant:</strong></dt>
+    <dd><%= @airline.max_age_infant %></dd>
 </dl>
 
-<%= link_to t('.back', :default => t("helpers.links.back")),
+<%= link_to "Volver",
               airlines_path, :class => 'btn btn-default'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
+<%= link_to "Editar",
               edit_airline_path(@airline), :class => 'btn btn-default' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+<%= link_to "Eliminar",
               airline_path(@airline),
               :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :data => { :confirm => "Esta seguro de eliminar este banco?"},
               :class => 'btn btn-danger' %>
