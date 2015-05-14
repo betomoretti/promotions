@@ -27,7 +27,7 @@ class Api::V1::PromotionsAppController < ApplicationController
         end
     end
 
-    def compatible_coefficients # retrieves coefficients given an airline, credit card, quota and amount.
+    def compatible_coefficients # Devuelve los coeficientes en base a aerolinea, banco y cuotas que se seleccione. En caso de seleccionar un monto, se devuelve el resultado.
         @airline_id=params["airline"]
         @credit_card_id=params["credit_card"]
         @cuotas=params["cuotas"]
@@ -37,8 +37,11 @@ class Api::V1::PromotionsAppController < ApplicationController
         @coefficients = form.search_coefficients.includes(:credit_card).entries unless form.search_coefficients.blank? 
         # this query retrieve the coefficient -> value from the compatible coefficient (first, it should be only one)
         if @coefficients.present?
-            if @coefficients.first.values.where(:quota => @cuotas).present? 
-                @result = @coefficients.first.values.where(:quota => @cuotas).entries.first.value.to_s.gsub(',', '.').to_f * BigDecimal(@monto.to_s)   # asigna a result el producto de el value de la cuota seleccionada y el monto. el value, en caso de estar escrito con , se pasa a . para que se pueda realizar la multiplicación.
+            if @monto.present?
+              if @coefficients.first.values.where(:quota => @cuotas).present? 
+                 @value = @coefficients.first.values.where(:quota => @cuotas).entries.first.value.to_s.gsub(',', '.').to_f
+                 @result = @value * BigDecimal(@monto.to_s)   # asigna a result el producto de el value de la cuota seleccionada y el monto. el value, en caso de estar escrito con , se pasa a . para que se pueda realizar la multiplicación.
+              end
             end
         end
     end

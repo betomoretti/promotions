@@ -34,7 +34,12 @@ json.promotions @promotions do |promotion|
         json.observations promotion.observations
     else
         json.observations 'Esta promoción no tiene observaciones'
-    end           
+    end   
+    if promotion.bin.present?        
+        json.bin promotion.bin
+    else
+        json.observations 'Esta promoción no tiene bines'
+    end             
 end
 
 json.coefficients @coefficients do |coefficient|

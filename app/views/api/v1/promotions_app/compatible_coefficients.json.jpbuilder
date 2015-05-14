@@ -1,1 +1,19 @@
-json.result @result
+if @result.present?
+  json.result @result
+else
+  json.result 'empty'    
+end    
+
+if @value.present?
+  json.resultValue @value
+else
+  json.resultValue 'empty'        
+end    
+
+json.coeficientes @coefficients do |coefficient|
+  json.tarjeta_credito coefficient.credit_card.name
+  json.values coefficient.values do |value|
+    json.cuota value.quota
+    json.valor value.value
+  end
+end    
