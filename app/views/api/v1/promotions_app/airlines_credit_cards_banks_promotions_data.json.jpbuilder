@@ -55,6 +55,6 @@ json.promotions @promotions do |promotion|
     if promotion.bin.present?        
         json.bin promotion.bin
     else
-        json.observations 'Esta promoción no tiene bines'
+        json.bin 'Esta promoción no tiene bines'
     end                 
 end
