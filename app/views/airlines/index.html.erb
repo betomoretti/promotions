@@ -23,11 +23,7 @@
                       airline_path(airline),
                       :method => :delete,
                       :data => { :confirm => "Esta seguro de eliminar esta aerolinea?" },
-                      :class => 'btn btn-xs btn-danger' %>
-          <%= link_to "Clonar",
-                      clone_airline_path(airline),
-                      :method => :post
-                      %>                                  
+                      :class => 'btn btn-xs btn-danger' %>                                
         </td>
       </tr>
     <% end %>
