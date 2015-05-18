@@ -11,7 +11,7 @@ class Condition
 
     belongs_to_record :airline
     has_many :promotions
-    has_many :coefficients
+    has_many :coefficients, dependent: :delete 
     
     validates_presence_of :start_date
     validates_presence_of :end_date
