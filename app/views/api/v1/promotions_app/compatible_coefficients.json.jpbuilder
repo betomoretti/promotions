@@ -10,11 +10,14 @@ else
   json.resultValue 'empty'        
 end    
 if @coefficients.present?
+  p @coefficients
+  have_values = false
   json.coeficientes @coefficients do |coefficient|
    if @cuotas.present?
      valores = coefficient.values
      valores.each do |valor|
        if valor.quota == @cuotas
+         have_values = true
          id_con = coefficient.condition_id
          condition = Condition.find(id_con)
          json.aerolinea condition.airline.name
@@ -36,8 +39,11 @@ if @coefficients.present?
         json.cuota value.quota
         json.valor value.value      
       end
-    end  
+  end  
   end
+    if have_values == false && @cuotas.present?
+      json.coeficientes 'empty'
+    end    
 else 
   json.coeficientes 'empty'  
 end
