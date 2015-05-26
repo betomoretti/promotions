@@ -10,7 +10,7 @@ class Condition
     field :active, type: Boolean
 
     belongs_to_record :airline
-    has_many :promotions
+    has_many :promotions, dependent: :delete
     has_many :coefficients, dependent: :delete 
     
     validates_presence_of :start_date
@@ -22,7 +22,7 @@ class Condition
     validate :promotions_dates, unless: "promotions.blank?"
     validate :coefficients_dates, unless: "coefficients.blank?"
     
-    scope :by_airline, ->(desired_id) { where(airline_id: desired_id ) }
+    scope :by_airline, ->(desired_id) { any_of({ :airline_id => desired_id }, {:airline_id.exists => false}, {:airline_id => nil})}
 
     def have_promotions
         if self.promotions.empty?

@@ -24,8 +24,8 @@ class Promotion
   validate :format_of_bin
 
   scope :by_airline, ->(desired_id) { any_in(condition_id: Condition.by_airline(desired_id).pluck(:id)) if desired_id.present?  }
-  scope :by_credit_card, ->(desired_id) { where(credit_card_id: desired_id ) if desired_id.present? }
-  scope :by_bank, ->(desired_id) { where(bank_id: desired_id ) if desired_id.present? }  
+  scope :by_credit_card, ->(desired_id) { any_of({credit_card_id: desired_id}, {:credit_card_id => nil},) if desired_id.present? }
+  scope :by_bank, ->(desired_id) { any_of({bank_id: desired_id}, {:bank_id => nil},) if desired_id.present? }  
   scope :by_cuotas, ->(desired_cuota) { any_of({quota: desired_cuota},{:quota => /,#{desired_cuota},/},{:quota => /^#{desired_cuota},/},{:quota => /,#{desired_cuota}$/},) if desired_cuota.present? }
 
 
