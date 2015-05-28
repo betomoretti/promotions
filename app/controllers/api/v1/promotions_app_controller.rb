@@ -23,7 +23,7 @@ class Api::V1::PromotionsAppController < ApplicationController
         if @airline_id == '' && @credit_card_id == '' && @bank_id == '' && @cuotas == ''  
             @promotions = Promotion.where(:active => true).where({'end_date' => {'$gte' => Date.today}}).entries
         else           
-            @promotions = form.search_promotions.includes(:bank , :credit_card).where({'end_date' => {'$gte' => Date.today}}).entries unless form.search_promotions.blank? 
+            @promotions = form.search_promotions unless form.search_promotions.blank? 
         end
     end
 
