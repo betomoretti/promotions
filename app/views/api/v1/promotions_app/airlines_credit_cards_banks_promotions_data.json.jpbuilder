@@ -18,17 +18,17 @@ json.promotions @promotions do |promotion|
     if promotion.credit_card.present?
         json.credit_card promotion.credit_card.name 
     else 
-        json.credit_card '-' 
+        json.credit_card 'Todas' 
     end
     if promotion.bank.present?
         json.bank promotion.bank.name
     else 
-        json.bank '-'
+        json.bank 'Todos'
     end
     if promotion.condition.present? and promotion.condition.airline.present?            
         json.airline promotion.condition.airline.name 
     else
-        json.airline '-'
+        json.airline 'Todas'
     end        
     if promotion.quota.present?
         json.quota promotion.quota
