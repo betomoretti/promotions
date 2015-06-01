@@ -39,7 +39,11 @@ class Api::V1::SearchForm
             if self.cuotas.present?
                 @promotions.delete_if{|p|  !((p.quota =~ /#{self.cuotas}(.*)/) || (p.quota =~ /(.*)#{self.cuotas}/ ) || (p.quota =~ /,#{self.cuotas},/ ))}
             end    
+            if (self.cuotas.present?) && (self.credit_card_id.blank? && self.bank_id.blank? && self.airline_id.blank?) 
+                @promotions = Promotion.all.entries.delete_if{|p|  !((p.quota =~ /#{self.cuotas}(.*)/) || (p.quota =~ /(.*)#{self.cuotas}/ ) || (p.quota =~ /,#{self.cuotas},/ ))}
+            end            
         # end
+        p @promotions
         @promotions
     end    
 
