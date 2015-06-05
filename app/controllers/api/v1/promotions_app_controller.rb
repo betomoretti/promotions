@@ -55,9 +55,9 @@ class Api::V1::PromotionsAppController < ApplicationController
     def airlines_credit_cards_banks_promotions_data # retrieves all arirlines, credit cards, promotions and banks. Also, it can have an airline param in order to retrieve specific promotions.
         # the airline param comes in the url
         @airline_id=params["airline"]
-        @airlines = Airline.all
-        @credit_cards = CreditCard.all
-        @banks = Bank.all        
+        @airlines = Airline.all.order(:name)
+        @credit_cards = CreditCard.all.order_by([:name,:asc])
+        @banks = Bank.all.order_by([:name,:asc])        
         # the next lines retrieve the promotions given an airline (or not)
         if @airline_id == ''   
             @promotions = Promotion.where(:active => true).where({'end_date' => {'$gte' => Date.today}})
