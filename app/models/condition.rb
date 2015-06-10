@@ -1,17 +1,8 @@
-class Condition
-    include Mongoid::Document
-    include Mongoid::ActiveRecordBridge
-    include Mongoid::Timestamps
+class Condition < ActiveRecord::Base
 
-    field :shortname, type: String
-    field :start_date, type: DateTime
-    field :end_date, type: DateTime
-    field :legal_description, type: String
-    field :active, type: Boolean
-
-    belongs_to_record :airline
-    has_many :promotions, dependent: :delete
-    has_many :coefficients, dependent: :delete 
+    belongs_to :airline
+    has_many :promotions, dependent: :destroy
+    has_many :coefficients, dependent: :destroy 
     
     validates_presence_of :start_date
     validates_presence_of :end_date
@@ -22,7 +13,7 @@ class Condition
     validate :promotions_dates, unless: "promotions.blank?"
     validate :coefficients_dates, unless: "coefficients.blank?"
     
-    scope :by_airline, ->(desired_id) { any_of({ :airline_id => desired_id }, {:airline_id.exists => false}, {:airline_id => nil})}
+    scope :by_airline, ->(desired_id) { where(airline_id: [desired_id,nil])}
 
     def have_promotions
         if self.promotions.empty?

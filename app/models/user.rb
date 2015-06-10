@@ -1,4 +1,5 @@
-class User  
+class User < ActiveRecord::Base
+  establish_connection "AeroManu_#{Rails.env}"
   attr_accessor :id, :name_and_surname, :email, :username, :agency_id
 
   def initialize(username, id,  name_and_surname, email, agency_id)

@@ -50,7 +50,6 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
-    bson (2.3.0)
     builder (3.2.2)
     bullet (4.14.4)
       activesupport (>= 3.0.0)
@@ -65,7 +64,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
-    connection_pool (2.1.0)
     database_cleaner (1.4.0)
     erubis (2.7.0)
     execjs (2.2.2)
@@ -93,21 +91,8 @@ GEM
       railties (>= 3.0.0, < 5.0.0)
     mime-types (1.25.1)
     minitest (5.5.0)
-    mongoid (4.0.0)
-      activemodel (~> 4.0)
-      moped (~> 2.0.0)
-      origin (~> 2.1)
-      tzinfo (>= 0.3.37)
-    mongoid-tree (2.0.0)
-      mongoid (>= 4.0, <= 5.0)
-    moped (2.0.3)
-      bson (~> 2.2)
-      connection_pool (~> 2.0)
-      optionable (~> 0.2.0)
     multi_json (1.10.1)
     mysql2 (0.3.17)
-    optionable (0.2.0)
-    origin (2.1.1)
     polyglot (0.3.5)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
@@ -199,8 +184,6 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   meta_request
-  mongoid
-  mongoid-tree (~> 2.0.0)
   mysql2 (~> 0.3.16)
   quiet_assets
   rabl-rails

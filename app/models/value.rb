@@ -1,9 +1,4 @@
-class Value
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  
-  field :quota, type: String
-  field :value, type: BigDecimal
+class Value < ActiveRecord::Base
 
   has_many :promotions
   belongs_to :coefficient

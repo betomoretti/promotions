@@ -1,15 +1,4 @@
-class Promotion
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
-  field :quota, type: String
-  field :bin, type: String
-  field :comerce_number, type: String
-  field :observations, type: String
-  field :observationsb2c, type: String  
-  field :start_date, type: Date
-  field :end_date, type: Date
-  field :active, type: Boolean
+class Promotion < ActiveRecord::Base
 
   belongs_to :bank
   belongs_to :credit_card
@@ -24,8 +13,8 @@ class Promotion
   validate :format_of_bin
 
   scope :by_airline, ->(desired_id) { any_in(condition_id: Condition.by_airline(desired_id).pluck(:id)) if desired_id.present?  }
-  # scope :by_credit_card, ->(desired_id) { any_of({credit_card_id: desired_id}, {:credit_card_id => nil},) if desired_id.present? }
-  # scope :by_bank, ->(desired_id) { any_of({bank_id: desired_id}, {:bank_id => nil},) if desired_id.present? }  
+  scope :by_credit_card, ->(desired_id) { where(credit_card_id: [desired_id,nil]) if desired_id.present? }
+  scope :by_bank, ->(desired_id) { where(bank_id: [desired_id,nil]) if desired_id.present? }  
   scope :by_cuotas, ->(desired_cuota) { any_of({quota: desired_cuota},{:quota => /,#{desired_cuota},/},{:quota => /^#{desired_cuota},/},{:quota => /,#{desired_cuota}$/},) if desired_cuota.present?}
 
 
@@ -34,15 +23,6 @@ class Promotion
     return true if sd <= self.start_date && es >= self.end_date
     return false
   end
-
-  def self.by_credit_card(desired_id)
-    any_of({credit_card_id: desired_id},{:credit_card_id => nil}) if desired_id.present?
-  end  
-
-  def self.by_bank(desired_id)
-    any_of({bank_id: desired_id},{:bank_id => nil}) if desired_id.present?
-  end  
-
 
   private
     def dates

@@ -1,6 +1,6 @@
 class Airline < ActiveRecord::Base
-
-    has_many_documents :conditions
+    establish_connection "AeroManu_#{Rails.env}"
+    has_many :conditions
 
     validates_presence_of :name, message: "Debe ingresar un nombre para la aerolínea"
     validates_presence_of :iata_code, message: "Debe ingresar un iata_code para la aerolínea"

@@ -1,14 +1,8 @@
-class Coefficient
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
-  field :start_date, type: Date
-  field :end_date, type: Date
-  field :active, type: Boolean
+class Coefficient < ActiveRecord::Base
 
   belongs_to :credit_card
   belongs_to :condition
-  has_many :values, :dependent => :delete
+  has_many :values, :dependent => :destroy
   
   accepts_nested_attributes_for :values, :allow_destroy => true, :reject_if => :all_blank
 
