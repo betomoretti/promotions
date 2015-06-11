@@ -12,7 +12,7 @@ class PromotionsController < ApplicationController
   
   # POST /promotions/1/clone
   def clone
-    @promotion = @promotion.clone
+    @promotion = @promotion.dup
     respond_to do |format|
       if @promotion.save
         @render_hidden_input = true if request.xhr?

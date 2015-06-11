@@ -20,8 +20,13 @@ class CoefficientsController < ApplicationController
 
   # POST /coefficients/1/clone
   def clone
-    values = @coefficient.values.clone # se deben generar tambien values nuevos, ya que cada value apunta a un ùnico coeficiente
-    @coefficient = @coefficient.clone
+    values = Array.new
+    @coefficient.values.all.each do |v|
+      x=v.dup
+      x.save
+      values.push(x)
+    end  
+    @coefficient = @coefficient.dup
     @coefficient.values = values
     respond_to do |format|
       if @coefficient.save

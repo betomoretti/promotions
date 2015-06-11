@@ -39,16 +39,6 @@ ActiveRecord::Schema.define(version: 20150610143214) do
 
   add_index "conditions", ["airline_id"], name: "index_conditions_on_airline_id", using: :btree
 
-  create_table "credit_cards", force: true do |t|
-    t.string   "name"
-    t.integer  "quantity_digits"
-    t.integer  "bin_start"
-    t.integer  "quantity_code_security"
-    t.boolean  "active",                 default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "promotions", force: true do |t|
     t.string   "quota"
     t.string   "bin"
@@ -71,7 +61,7 @@ ActiveRecord::Schema.define(version: 20150610143214) do
 
   create_table "values", force: true do |t|
     t.string   "quota"
-    t.decimal  "value",          precision: 10, scale: 0
+    t.float    "value",          limit: 24
     t.integer  "coefficient_id"
     t.datetime "created_at"
     t.datetime "updated_at"

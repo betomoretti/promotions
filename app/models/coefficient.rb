@@ -1,6 +1,6 @@
 class Coefficient < ActiveRecord::Base
 
-  belongs_to :credit_card
+  # belongs_to :credit_card
   belongs_to :condition
   has_many :values, :dependent => :destroy
   
@@ -15,7 +15,9 @@ class Coefficient < ActiveRecord::Base
   scope :by_airline, ->(desired_id) { any_in(condition_id: Condition.by_airline(desired_id).pluck(:id)) if desired_id.present?  }
   scope :by_credit_card, ->(desired_id) { where(credit_card_id: desired_id ) if desired_id.present? }
 
-
+  def credit_card
+    @credit_card ||= CreditCard.find self.credit_card_id unless self.credit_card_id.blank?#
+  end  
 
   # sd = start_date, ed= end_date
   def between_dates(sd, es)
