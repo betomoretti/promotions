@@ -38,6 +38,10 @@ GEM
       activemodel (= 4.1.4)
       activesupport (= 4.1.4)
       arel (~> 5.0.0)
+    activeresource (4.0.0)
+      activemodel (~> 4.0)
+      activesupport (~> 4.0)
+      rails-observers (~> 0.1.1)
     activesupport (4.1.4)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
@@ -54,6 +58,11 @@ GEM
     bullet (4.14.4)
       activesupport (>= 3.0.0)
       uniform_notifier (>= 1.6.0)
+    cached_resource (4.1.0)
+      activeresource (>= 3.2)
+      activesupport (>= 3.2)
+      nilio (>= 1.0)
+      rake
     callsite (0.0.11)
     cocoon (1.2.6)
     coderay (1.1.0)
@@ -93,6 +102,7 @@ GEM
     minitest (5.5.0)
     multi_json (1.10.1)
     mysql2 (0.3.17)
+    nilio (1.0.0)
     polyglot (0.3.5)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
@@ -117,6 +127,8 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.4)
       sprockets-rails (~> 2.0)
+    rails-observers (0.1.2)
+      activemodel (~> 4.0)
     railties (4.1.4)
       actionpack (= 4.1.4)
       activesupport (= 4.1.4)
@@ -173,9 +185,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activeresource
   awesome_print
   better_errors
   bullet
+  cached_resource
   cocoon
   coffee-rails (~> 4.0.0)
   database_cleaner (~> 1.4.0)

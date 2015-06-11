@@ -13,13 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150610143214) do
 
-  create_table "banks", force: true do |t|
-    t.string   "name"
-    t.boolean  "active",     default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "coefficients", force: true do |t|
     t.date     "start_date"
     t.date     "end_date"

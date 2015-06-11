@@ -17,6 +17,11 @@ gem 'database_cleaner', '~> 1.4.0'
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'select2-rails'
 
+
+gem 'activeresource', :require => 'active_resource'
+gem 'cached_resource'
+
+
 # gem 'mongoid'
 # gem 'mongoid-tree', '~> 2.0.0'
 gem 'jquery-turbolinks'

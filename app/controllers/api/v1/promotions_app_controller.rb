@@ -56,8 +56,8 @@ class Api::V1::PromotionsAppController < ApplicationController
         # the airline param comes in the url
         @airline_id=params["airline"]
         @airlines = Airline.all.order(:name)
-        @credit_cards = CreditCard.all.order_by([:name,:asc])
-        @banks = Bank.all.order_by([:name,:asc])        
+        @credit_cards = CreditCard.all.order(:name)
+        @banks = Bank.all.order(:name)        
         # the next lines retrieve the promotions given an airline (or not)
         if @airline_id == ''   
             @promotions = Promotion.where(:active => true).where({'end_date' => {'$gte' => Date.today}})
