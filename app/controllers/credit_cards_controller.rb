@@ -1,3 +1,4 @@
+require 'csv'
 class CreditCardsController < ApplicationController
   before_action :set_credit_card, only: [:show, :edit, :update, :destroy]
 
@@ -5,7 +6,15 @@ class CreditCardsController < ApplicationController
   # GET /credit_cards.json
   def index
     @credit_cards = CreditCard.all
+    respond_to do |format|
+      format.html
+      format.csv do
+        headers['Content-Disposition'] = "attachment; filename=\"credit_cards-list\""
+        headers['Content-Type'] ||= 'text/csv'
+      end
+    end
   end
+
 
   # GET /credit_cards/1
   # GET /credit_cards/1.json

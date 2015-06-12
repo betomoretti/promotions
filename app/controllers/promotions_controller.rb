@@ -10,6 +10,17 @@ class PromotionsController < ApplicationController
     render layout: false 
   end
   
+  def export_to_csv
+    @promotions = Promotion.all.order(created_at: :desc)
+    respond_to do |format|
+      format.csv do
+        headers['Content-Disposition'] = "attachment; filename=\"promotion-list\""
+        headers['Content-Type'] ||= 'text/csv'
+      end
+    end  
+  end  
+
+
   # POST /promotions/1/clone
   def clone
     @promotion = @promotion.clone

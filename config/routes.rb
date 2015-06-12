@@ -27,6 +27,10 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
+  get 'coefficients/export_to_csv',:to => "coefficients#export_to_csv"
+  get 'coefficients/export_values_to_csv',:to => "coefficients#export_values_to_csv"
+  get 'promotions/export_to_csv',:to => "promotions#export_to_csv"
+
   patch 'promotions/:id/enable',:to => "promotions#enable"
   patch 'promotions/:id/disable',:to => "promotions#disable"
   post 'promotions/:id/clone',:to => "promotions#clone"

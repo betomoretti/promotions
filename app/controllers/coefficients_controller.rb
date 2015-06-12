@@ -1,3 +1,4 @@
+require 'csv'
 class CoefficientsController < ApplicationController
   before_action :set_coefficient, only: [:edit, :update, :destroy, :enable, :disable, :clone]
   before_action :set_credit_cards, only: [:new, :edit]
@@ -10,6 +11,27 @@ class CoefficientsController < ApplicationController
     @coefficient.values = [Value.new(quota: "3"),Value.new(quota: "6"),Value.new(quota: "9"),Value.new(quota: "12")]
     render layout: false
   end
+
+  def export_to_csv
+      @coefficients = Coefficient.all
+      respond_to do |format|
+      format.csv do
+        headers['Content-Disposition'] = "attachment; filename=\"coefficient-list\""
+        headers['Content-Type'] ||= 'text/csv'
+      end
+    end   
+  end  
+
+  def export_values_to_csv
+    @values = Value.all
+    respond_to do |format|
+      format.csv do
+        headers['Content-Disposition'] = "attachment; filename=\"values-list\""
+        headers['Content-Type'] ||= 'text/csv'
+      end
+    end   
+  end  
+
   
   # GET /coefficients/1/edit
   def edit

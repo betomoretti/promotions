@@ -1,0 +1,5 @@
+<%- headers = ['Id', 'Quota', 'Value','Active','Coefficient_id'] -%>
+<%= CSV.generate_line headers %>
+<%- @values.each do |value| -%>
+  <%= CSV.generate_line([value.id.to_s, value.quota, value.value, value.coefficient_id.to_s]).html_safe %>
+<%- end -%>

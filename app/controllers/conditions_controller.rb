@@ -6,6 +6,13 @@ class ConditionsController < ApplicationController
   # GET /conditions.json
   def index
     @conditions = Condition.all.order(created_at: :desc)
+    respond_to do |format|
+      format.html
+      format.csv do
+        headers['Content-Disposition'] = "attachment; filename=\"condition-list\""
+        headers['Content-Type'] ||= 'text/csv'
+      end
+    end    
   end
 
   # GET /conditions/1

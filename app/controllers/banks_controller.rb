@@ -1,3 +1,4 @@
+require 'csv'
 class BanksController < ApplicationController
   before_action :set_bank, only: [:show, :edit, :update, :destroy]
 
@@ -5,6 +6,13 @@ class BanksController < ApplicationController
   # GET /banks.json
   def index
     @banks = Bank.all
+    respond_to do |format|
+      format.html
+      format.csv do
+        headers['Content-Disposition'] = "attachment; filename=\"bank-list\""
+        headers['Content-Type'] ||= 'text/csv'
+      end
+    end
   end
 
   # GET /banks/1

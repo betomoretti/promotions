@@ -1,0 +1,5 @@
+<%- headers = ['mongodb_id', 'shortname', 'start_date','end_date', 'legal_description', 'active', 'airline_id'] -%>
+<%= CSV.generate_line headers %>
+<%- @conditions.each do |condition| -%>
+  <%= CSV.generate_line([condition.id.to_s, condition.shortname, condition.start_date, condition.end_date, condition.legal_description, condition.active, condition.airline_id]).html_safe %>
+<%- end -%>

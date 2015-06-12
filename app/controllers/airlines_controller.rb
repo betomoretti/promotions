@@ -1,3 +1,4 @@
+require('csv')
 class AirlinesController < ApplicationController
 before_action :set_airline, only: [:show, :edit, :update, :destroy, :clone]    
 
@@ -6,6 +7,13 @@ before_action :set_airline, only: [:show, :edit, :update, :destroy, :clone]
   # GET /airlines.json
   def index
     @airlines = Airline.all
+    respond_to do |format|
+      format.html
+      format.csv do
+        headers['Content-Disposition'] = "attachment; filename=\"airline-list\""
+        headers['Content-Type'] ||= 'text/csv'
+      end
+    end    
   end
 
   # GET /airlines/1

@@ -1,0 +1,5 @@
+<%- headers = ['mongodb_id', 'name', 'quantity_digits','bin_start', 'quantity_code_security', 'active'] -%>
+<%= CSV.generate_line headers %>
+<%- @credit_cards.each do |card| -%>
+  <%= CSV.generate_line([card.id.to_s, card.name, card.quantity_digits, card.bin_start, card.quantity_code_security, card.active]).html_safe %>
+<%- end -%>

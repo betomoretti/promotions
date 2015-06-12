@@ -1,0 +1,5 @@
+<%- headers = ['mongodb_id', 'name', 'max_age_infant','max_age_child','general_tax_id','general_markup_id','iata_code'] -%>
+<%= CSV.generate_line headers %>
+<%- @airlines.each do |airline| -%>
+  <%= CSV.generate_line([airline.id.to_s, airline.name, airline.max_age_infant, airline.max_age_child, airline.general_tax_id, airline.general_markup_id, airline.iata_code]).html_safe %>
+<%- end -%>
