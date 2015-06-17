@@ -57,9 +57,10 @@ json.promotions @promotions do |promotion|
     else
         json.bin 'Esta promoción no tiene bines'
     end
-    if promotion.comerce_number.present?        
-        json.comerce_number promotion.comerce_number
+    if promotion.commerce_number.present?        
+        json.commerce_number promotion.commerce_number
     else
-        json.comerce_number 'Esta promoción no tiene numero de comercio'
-    end                              
+        json.commerce_number 'Esta promoción no tiene numero de comercio'
+    end                             
 end
+    json.cantidad_prom @promotions.size 

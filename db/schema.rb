@@ -16,9 +16,12 @@ ActiveRecord::Schema.define(version: 20150610143214) do
   create_table "coefficients", force: true do |t|
     t.date     "start_date"
     t.date     "end_date"
-    t.boolean  "active",         default: true
+    t.boolean  "active",                 default: true
     t.integer  "credit_card_id"
+    t.string   "credit_card_mongodb_id"
     t.integer  "condition_id"
+    t.string   "condition_mongodb_id"
+    t.string   "mongodb_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -28,11 +31,12 @@ ActiveRecord::Schema.define(version: 20150610143214) do
 
   create_table "conditions", force: true do |t|
     t.string   "shortname"
-    t.string   "legal_description"
+    t.text     "legal_description"
     t.date     "start_date"
     t.date     "end_date"
     t.boolean  "active",            default: true
     t.integer  "airline_id"
+    t.string   "mongodb_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -43,14 +47,18 @@ ActiveRecord::Schema.define(version: 20150610143214) do
     t.string   "quota"
     t.string   "bin"
     t.string   "commerce_number"
-    t.string   "observations"
-    t.string   "observationsb2c"
+    t.text     "observations"
+    t.text     "observationsb2c"
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "bank_id"
+    t.string   "bank_mongodb_id"
     t.integer  "credit_card_id"
+    t.string   "credit_card_mongodb_id"
     t.integer  "condition_id"
-    t.boolean  "active",          default: true
+    t.string   "condition_mongodb_id"
+    t.boolean  "active",                 default: true
+    t.string   "mongodb_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -61,8 +69,10 @@ ActiveRecord::Schema.define(version: 20150610143214) do
 
   create_table "values", force: true do |t|
     t.string   "quota"
-    t.float    "value",          limit: 24
+    t.float    "value",                  limit: 24
     t.integer  "coefficient_id"
+    t.string   "coefficient_mongodb_id"
+    t.string   "mongodb_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

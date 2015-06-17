@@ -12,7 +12,7 @@ class Coefficient < ActiveRecord::Base
   validate :dates, unless: "start_date.nil? || end_date.nil?"
   
 
-  scope :by_airline, ->(desired_id) { any_in(condition_id: Condition.by_airline(desired_id).pluck(:id)) if desired_id.present?  }
+  scope :by_airline, ->(desired_id) { where(:condition_id => Condition.by_airline(desired_id).pluck(:id)) if desired_id.present?  }
   scope :by_credit_card, ->(desired_id) { where(credit_card_id: desired_id ) if desired_id.present? }
 
   def credit_card

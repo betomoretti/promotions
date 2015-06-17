@@ -1,0 +1,36 @@
+mongodb_id,name,active
+  54f74f4a776562ec0a130000,Banco de Santa Fe,true
+  54f74f56776562ec0a140000,Banco de Corrientes,true
+  54f74f86776562ec0a150000,Banco de Formosa,true
+  54f74fc6776562ec0a160000,Banco de La Pampa,true
+  54f74fd9776562ec0a170000,Banco de San Juan,true
+  54f74fed776562ec0a180000,Banco de Santiago del Estero,true
+  54f75020776562ec0a190000,Banco del Chubut,true
+  54f7502c776562ec0a1a0000,Banco de Tierra del Fuego,true
+  54f75040776562ec0a1b0000,Banco del Tucuman,true
+  54f7504e776562ec0a1c0000,Banco Industrial,true
+  54f75065776562ec0a1d0000,Banco Macro,true
+  54f7507b776562ec0a1e0000,Banco Itau,true
+  54f7512f776562ec0a200000,Banco Nacion,true
+  54f7513a776562ec0a210000,Banco Ciudad,true
+  54f75157776562ec0a220000,Banco Patagonia,true
+  54f75256776562ec0a230000,Banco Santander Rio,true
+  54f7526a776562ec0a240000,Banco Galicia,true
+  54f7527b776562ec0a250000,Banco Comafi,true
+  54f75292776562ec0a260000,Banco Frances,true
+  54f752b7776562ec0a270000,Banco Nacion Nativa,true
+  54f752e3776562ec0a280000,Banco Supervielle,true
+  54f752f1776562ec0a290000,Banco Provincia,true
+  54f75313776562ec0a2a0000,Citibank,true
+  54f75325776562ec0a2b0000,HSBC Bank,true
+  54f75335776562ec0a2c0000,ICBC,true
+  54f7535f776562ec0a2d0000,Naranja,true
+  54f75388776562ec0a2e0000,Banco Provincia del Neuquén,true
+  54f753b1776562ec0a2f0000,Banco Hipotecario,true
+  54f753ce776562ec0a300000,Banco Credicoop,true
+  550b1b557765621162080000,GRUPO PETERSEN,true
+  550b24e77765621162150000,Banco de Santa Cruz,true
+  550b27397765621162180000,BANCO DE ENTRE RIOS,true
+  550b293f77656211621b0000,BANCO CHACO,true
+  552ec1f47765625eb20d0000,NUEVO BANCO DE ENTRE RIOS,true
+  5554faa377656254bf520000,CENCOSUD,true

@@ -12,10 +12,11 @@ class Promotion < ActiveRecord::Base
   validate :format_of_quota
   validate :format_of_bin
 
-  scope :by_airline, ->(desired_id) { any_in(condition_id: Condition.by_airline(desired_id).pluck(:id)) if desired_id.present?  }
+  scope :by_airline, ->(desired_id) { where(:condition_id => Condition.by_airline(desired_id).pluck(:id)) if desired_id.present?  }
   scope :by_credit_card, ->(desired_id) { where(credit_card_id: [desired_id,nil]) if desired_id.present? }
   scope :by_bank, ->(desired_id) { where(bank_id: [desired_id,nil]) if desired_id.present? }  
-  scope :by_cuotas, ->(desired_cuota) { any_of({quota: desired_cuota},{:quota => /,#{desired_cuota},/},{:quota => /^#{desired_cuota},/},{:quota => /,#{desired_cuota}$/},) if desired_cuota.present?}
+  scope :by_cuotas, ->(desired_cuota) { where('quota like ? or quota like ? or quota like ? or quota like ?', desired_cuota,'%,' + desired_cuota, '%,' + desired_cuota +',%' ,desired_cuota + ',%') if desired_cuota.present?}
+
 
   def bank
     @bank ||= Bank.find self.bank_id unless self.bank_id.blank?#

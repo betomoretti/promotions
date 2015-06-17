@@ -37,6 +37,9 @@ Rails.application.routes.draw do
   patch 'coefficients/:id/disable',:to => "coefficients#disable"
   post 'coefficients/:id/clone',:to => "coefficients#clone"
 
+
   # You can have the root of your site routed with "root"
   root 'conditions#index'
+
+
 end

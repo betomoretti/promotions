@@ -1,0 +1,9 @@
+mongodb_id,name,quantity_digits,bin_start,quantity_code_security,active
+  54eb9a8a776562ec0a0a0000,Visa,16,4,3,true
+  54eb9b73776562ec0a0c0000,Diners,14,36,3,true
+  54eb9b84776562ec0a0d0000,Cabal,16,5896,3,true
+  54eb9b8f776562ec0a0e0000,Amex,15,37,4,true
+  54eb9ba4776562ec0a0f0000,Naranja,16,5895,3,true
+  552ec1ac7765625eb20c0000,NATIVA,6,487017,3,true
+  55394beb77656204b3530000,Argencard,,,,true
+  554d4be1776562d850a10000,Mastercard,16,5,3,true

@@ -47,3 +47,4 @@ if @coefficients.present?
 else 
   json.coeficientes 'empty'  
 end
+json.cant @coefficients.size

@@ -21,7 +21,7 @@ class Api::V1::PromotionsAppController < ApplicationController
     #makes the query only if airline, credit card or bank are specified. Otherwise, it just return all promtions. 
         form = Api::V1::SearchForm.new(airline_id:@airline_id,credit_card_id:@credit_card_id,bank_id:@bank_id, cuotas:@cuotas)  
         if @airline_id == '' && @credit_card_id == '' && @bank_id == '' && @cuotas == ''  
-            @promotions = Promotion.where(:active => true).where({'end_date' => {'$gte' => Date.today}}).entries
+            @promotions = Promotion.where(:active => true).where("end_date >= ?",Date.today)
         else           
             @promotions = form.search_promotions unless form.search_promotions.blank? 
         end
@@ -34,7 +34,7 @@ class Api::V1::PromotionsAppController < ApplicationController
         @monto=params["monto"]
         # looks for the compatible coefficient given an airline, credit card, quota and amount.
         form = Api::V1::SearchForm.new(airline_id:@airline_id,credit_card_id:@credit_card_id,monto:@monto,cuotas:@cuotas)       
-        @coefficients = form.search_coefficients.includes(:credit_card).entries unless form.search_coefficients.blank?        
+        @coefficients = form.search_coefficients.entries unless form.search_coefficients.blank?        
         # this query retrieve the coefficient -> value from the compatible coefficient (first, it should be only one)
         if @coefficients.present?
             if @monto.present? && @cuotas.present? && @credit_card_id.present? && @airline_id.present?
@@ -56,11 +56,11 @@ class Api::V1::PromotionsAppController < ApplicationController
         # the airline param comes in the url
         @airline_id=params["airline"]
         @airlines = Airline.all.order(:name)
-        @credit_cards = CreditCard.all.order(:name)
-        @banks = Bank.all.order(:name)        
+        @credit_cards = CreditCard.all
+        @banks = Bank.all        
         # the next lines retrieve the promotions given an airline (or not)
         if @airline_id == ''   
-            @promotions = Promotion.where(:active => true).where({'end_date' => {'$gte' => Date.today}})
+            @promotions = Promotion.where(:active => true).where("end_date >= ?",Date.today)
         else        
             form = Api::V1::SearchForm.new(airline_id:@airline_id)
             @promotions = form.search_promotions unless form.search_promotions.blank? 
