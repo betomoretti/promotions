@@ -13,7 +13,7 @@ gem 'quiet_assets', group: :development
 gem 'awesome_print'
 
 gem 'database_cleaner', '~> 1.4.0'
-
+gem "byebug"
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'select2-rails'
 
