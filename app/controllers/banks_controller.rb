@@ -9,7 +9,7 @@ class BanksController < ApplicationController
     respond_to do |format|
       format.html
       format.csv do
-        headers['Content-Disposition'] = "attachment; filename=\"bank-list\""
+        headers['Content-Disposition'] = "attachment; filename=\"bank-list.csv\""
         headers['Content-Type'] ||= 'text/csv'
       end
     end

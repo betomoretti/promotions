@@ -1,5 +1,5 @@
-<%- headers = ['mongodb_id', 'quota', 'value','coefficient_id'] -%>
+<%- headers = ['mongodb_id', 'quota', 'value','coefficient_id', 'created_at', 'updated_at'] -%>
 <%= CSV.generate_line headers %>
 <%- @values.each do |value| -%>
-  <%=CSV.generate_line([value.id.to_s, value.quota, value.value.to_f, value.coefficient_id.to_s])%>
+  <%=CSV.generate_line([value.id.to_s, value.quota, value.value.to_f, value.coefficient_id.to_s, value.created_at, value.updated_at])%>
 <%- end -%>

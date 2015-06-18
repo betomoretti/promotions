@@ -1,5 +1,5 @@
-<%- headers = ['mongodb_id', 'quota', 'bin','commerce_number', 'observations', 'observationsb2c', 'start_date', 'end_date', 'active', 'credit_card_id','bank_id','condition_id'] -%>
+<%- headers = ['mongodb_id', 'quota', 'bin','commerce_number', 'observations', 'observationsb2c', 'start_date', 'end_date', 'active', 'credit_card_id','bank_id','condition_id', 'created_at', 'updated_at'] -%>
 <%= CSV.generate_line headers %>
 <%- @promotions.each do |promotion| -%>
-  <%= CSV.generate_line([promotion.id.to_s, promotion.quota, promotion.bin, promotion.comerce_number, promotion.observations, promotion.observationsb2c, promotion.start_date, promotion.end_date, promotion.active, promotion.credit_card_id.to_s, promotion.bank_id.to_s, promotion.condition_id.to_s]).html_safe %>
+  <%= CSV.generate_line([promotion.id.to_s, promotion.quota, promotion.bin, promotion.comerce_number, promotion.observations, promotion.observationsb2c, promotion.start_date, promotion.end_date, promotion.active, promotion.credit_card_id.to_s, promotion.bank_id.to_s, promotion.condition_id.to_s, promotion.created_at, promotion.updated_at]).html_safe %>
 <%- end -%>

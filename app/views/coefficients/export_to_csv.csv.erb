@@ -1,5 +1,5 @@
-<%- headers = ['mongodb_id', 'start_date', 'end_date','active','credit_card_id','condition_id'] -%>
+<%- headers = ['mongodb_id', 'start_date', 'end_date','active','credit_card_id','condition_id', 'created_at', 'updated_at'] -%>
 <%= CSV.generate_line headers %>
 <%- @coefficients.each do |coef| -%>
-  <%= CSV.generate_line([coef.id.to_s, coef.start_date, coef.end_date, coef.active, coef.credit_card_id.to_s, coef.condition_id.to_s]).html_safe %>
+  <%= CSV.generate_line([coef.id.to_s, coef.start_date, coef.end_date, coef.active, coef.credit_card_id.to_s, coef.condition_id.to_s, coef.created_at, coef.updated_at]).html_safe %>
 <%- end -%>

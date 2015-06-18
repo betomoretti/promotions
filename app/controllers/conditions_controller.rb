@@ -1,3 +1,4 @@
+require 'csv'
 class ConditionsController < ApplicationController
   before_action :set_condition, only: [:show, :edit, :destroy]
   before_action :set_airlines, only: [:edit, :new]

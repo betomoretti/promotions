@@ -10,7 +10,7 @@ before_action :set_airline, only: [:show, :edit, :update, :destroy, :clone]
     respond_to do |format|
       format.html
       format.csv do
-        headers['Content-Disposition'] = "attachment; filename=\"airline-list\""
+        headers['Content-Disposition'] = "attachment; filename=\"airline-list.csv\""
         headers['Content-Type'] ||= 'text/csv'
       end
     end    

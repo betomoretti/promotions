@@ -14,7 +14,7 @@ class PromotionsController < ApplicationController
     @promotions = Promotion.all.order(created_at: :desc)
     respond_to do |format|
       format.csv do
-        headers['Content-Disposition'] = "attachment; filename=\"promotion-list\""
+        headers['Content-Disposition'] = "attachment; filename=\"promotion-list.csv\""
         headers['Content-Type'] ||= 'text/csv'
       end
     end  

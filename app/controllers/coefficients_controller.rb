@@ -16,7 +16,7 @@ class CoefficientsController < ApplicationController
       @coefficients = Coefficient.all
       respond_to do |format|
       format.csv do
-        headers['Content-Disposition'] = "attachment; filename=\"coefficient-list\""
+        headers['Content-Disposition'] = "attachment; filename=\"coefficient-list.csv\""
         headers['Content-Type'] ||= 'text/csv'
       end
     end   
