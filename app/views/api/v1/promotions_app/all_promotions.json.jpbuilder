@@ -31,4 +31,3 @@ json.promotions @promotions do |promotion|
         json.end_date '-'
     end          
 end
-json.cant_prom @promotions.size
