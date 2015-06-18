@@ -40,7 +40,7 @@ class Api::V1::PromotionsAppController < ApplicationController
             if @monto.present? && @cuotas.present? && @credit_card_id.present? && @airline_id.present?
               if @coefficients.first.values.where(:quota => @cuotas).present? 
                  @value = @coefficients.first.values.where(:quota => @cuotas).entries.first.value.to_s.gsub(',', '.').to_f
-                 @result = @value * BigDecimal(@monto.to_s)   # asigna a result el producto de el value de la cuota seleccionada y el monto. el value, en caso de estar escrito con , se pasa a . para que se pueda realizar la multiplicación.
+                 @result = @value * BigDecimal(@monto.to_s)   # asigna a result el producto del value de la cuota seleccionada y el monto. el value, en caso de estar escrito con , se pasa a . para que se pueda realizar la multiplicación.
               end
             end
         end

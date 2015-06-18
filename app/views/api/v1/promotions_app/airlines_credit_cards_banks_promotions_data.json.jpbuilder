@@ -63,4 +63,3 @@ json.promotions @promotions do |promotion|
         json.commerce_number 'Esta promoción no tiene numero de comercio'
     end                             
 end
-    json.cantidad_prom @promotions.size 

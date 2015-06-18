@@ -47,8 +47,4 @@ json.promotions @promotions do |promotion|
     end                     
 end
 
-json.coefficients @coefficients do |coefficient|
-    json.id coefficient.id.to_s
-    json.values coefficient.values if coefficient.values.present?
-end
 
