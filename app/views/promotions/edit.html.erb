@@ -9,7 +9,7 @@
             e.preventDefault(); // stops default behavior
             data = {};
             $(this).serializeArray().map(function(x){data[x.name] = x.value;});//Arma el json con los datos del form
-            id = JSON.parse($(this).attr('data-id')).$oid;
+            id = $(this).attr('data-id');
             $.ajax({
                 url: $(this).attr('action'),
                 data: data,  

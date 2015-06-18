@@ -1,6 +1,5 @@
 class Coefficient < ActiveRecord::Base
 
-  # belongs_to :credit_card
   belongs_to :condition
   has_many :values, :dependent => :destroy
   
@@ -14,7 +13,7 @@ class Coefficient < ActiveRecord::Base
 
   scope :by_airline, ->(desired_id) { where(:condition_id => Condition.by_airline(desired_id).pluck(:id)) if desired_id.present?  }
   scope :by_credit_card, ->(desired_id) { where(credit_card_id: desired_id ) if desired_id.present? }
-
+# activeresource
   def credit_card
     @credit_card ||= CreditCard.find self.credit_card_id unless self.credit_card_id.blank?#
   end  

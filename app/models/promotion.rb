@@ -1,7 +1,5 @@
 class Promotion < ActiveRecord::Base
 
-  # belongs_to :bank
-  # belongs_to :credit_card
   belongs_to :condition
 
   validates_presence_of :start_date, message: "Debe seleccionar una fecha de inicio. "
@@ -17,9 +15,9 @@ class Promotion < ActiveRecord::Base
   scope :by_bank, ->(desired_id) { where(bank_id: [desired_id,nil]) if desired_id.present? }  
   scope :by_cuotas, ->(desired_cuota) { where('quota like ? or quota like ? or quota like ? or quota like ?', desired_cuota,'%,' + desired_cuota, '%,' + desired_cuota +',%' ,desired_cuota + ',%') if desired_cuota.present?}
 
-
+# activeresource
   def bank
-    @bank ||= Bank.find self.bank_id unless self.bank_id.blank?#
+    @bank ||= Bank.find self.bank_id unless self.bank_id.blank?
   end
   def credit_card
     @credit_card ||= CreditCard.find self.credit_card_id unless self.credit_card_id.blank?#
