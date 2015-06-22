@@ -60,7 +60,7 @@ class Api::V1::PromotionsAppController < ApplicationController
         @banks = Bank.all        
         # the next lines retrieve the promotions given an airline (or not)
         if @airline_id == ''   
-            @promotions = Promotion.where(:active => true).where("end_date >= ?",Date.today)
+            @promotions = Promotion.where(:active => true).includes(condition: :airline).where("end_date >= ?",Date.today)
         else        
             form = Api::V1::SearchForm.new(airline_id:@airline_id)
             @promotions = form.search_promotions unless form.search_promotions.blank? 

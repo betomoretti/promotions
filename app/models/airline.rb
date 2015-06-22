@@ -1,5 +1,5 @@
 class Airline < ActiveRecord::Base
-    establish_connection "AeroManu_#{Rails.env}"
+    establish_connection :AeroManu_development
     has_many :conditions
 
     validates_presence_of :name, message: "Debe ingresar un nombre para la aerolínea"
