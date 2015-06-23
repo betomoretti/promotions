@@ -47,7 +47,7 @@ namespace :mysql_import do
     credit_cards=CreditCard.all
     conditions=Condition.all
     Coefficient.all.each do |c|
-      tarjeta = credit_cards.detect { |cc| cc.mongodb_id == ('  ' + c.credit_card_mongodb_id)}
+      tarjeta = credit_cards.detect { |cc| cc.mongodb_id == c.credit_card_mongodb_id}
       c.credit_card_id = tarjeta.id unless tarjeta.blank?
       condicion = Condition.find_by mongodb_id:('  ' + c.condition_mongodb_id)
       c.condition_id = condicion.id unless condicion.blank?
@@ -60,9 +60,9 @@ namespace :mysql_import do
     banks=Bank.all
     conditions=Condition.all
     Promotion.all.each do |pr|
-      tarjeta = credit_cards.detect { |cc| cc.mongodb_id == ('  ' + pr.credit_card_mongodb_id)}
+      tarjeta = credit_cards.detect { |cc| cc.mongodb_id == pr.credit_card_mongodb_id}
       pr.credit_card_id = tarjeta.id unless tarjeta.blank?
-      banco = banks.detect { |b| b.mongodb_id == ('  ' + pr.bank_mongodb_id)}
+      banco = banks.detect { |b| b.mongodb_id == pr.bank_mongodb_id}
       pr.bank_id = banco.id unless banco.blank?
       condicion = conditions.detect { |cond| cond.mongodb_id == ('  ' + pr.condition_mongodb_id)}
       pr.condition_id = condicion.id unless condicion.blank?
