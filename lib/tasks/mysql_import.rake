@@ -17,9 +17,12 @@ namespace :mysql_import do
   end
 
   task :promotions => :environment do
-    file = "db/promotion-list"
+    file = "db/promotion-list.csv"
     CSV.foreach(file , :headers => true) do |row|
-      Promotion.create({'mongodb_id'=>row['mongodb_id'],'quota'=>row['quota'],'commerce_number'=>row['commerce_number'], 'bin'=>row['bin'],'observations'=>row['observations'], 'observationsb2c'=>row['observationsb2c'],'start_date'=>row['start_date'],'end_date'=>row['end_date'], 'active'=>row['active'],'credit_card_mongodb_id'=>row['credit_card_id'],'bank_mongodb_id'=>row['bank_id'], 'condition_mongodb_id'=>row['condition_id'], "credit_card_id"=>nil, "created_at"=>row['created_at'],"updated_at"=>row["updated_at"]}) unless row.all?(&:nil?)
+      unless row.all?(&:nil?)
+        p = Promotion.new({'mongodb_id'=>row['mongodb_id'],'quota'=>row['quota'],'commerce_number'=>row['commerce_number'], 'bin'=>row['bin'],'observations'=>row['observations'], 'observationsb2c'=>row['observationsb2c'],'start_date'=>row['start_date'],'end_date'=>row['end_date'], 'active'=>row['active'],'credit_card_mongodb_id'=>row['credit_card_id'],'bank_mongodb_id'=>row['bank_id'], 'condition_mongodb_id'=>row['condition_id'], "credit_card_id"=>nil, "created_at"=>row['created_at'],"updated_at"=>row["updated_at"]}) 
+        p.save(:validate => false)
+      end
     end
   end
 

@@ -2,7 +2,7 @@ class CreatePromotions < ActiveRecord::Migration
   def change
     create_table :promotions do |t|
       t.string :quota
-      t.string :bin
+      t.text :bin
       t.string :commerce_number
       t.text :observations
       t.text :observationsb2c

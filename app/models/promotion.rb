@@ -13,7 +13,7 @@ class Promotion < ActiveRecord::Base
   scope :by_airline, ->(desired_id) { where(:condition_id => Condition.by_airline(desired_id).pluck(:id)) if desired_id.present?  }
   scope :by_credit_card, ->(desired_id) { where(credit_card_id: [desired_id,nil]) if desired_id.present? }
   scope :by_bank, ->(desired_id) { where(bank_id: [desired_id,nil]) if desired_id.present? }  
-  scope :by_cuotas, ->(desired_cuota) { where('quota like ? or quota like ? or quota like ? or quota like ?', desired_cuota,'%,' + desired_cuota, '%,' + desired_cuota +',%' ,desired_cuota + ',%') if desired_cuota.present?}
+  scope :by_cuotas, ->(desired_cuota) { where('quota like ? or quota like ? or quota like ? or quota like ? or quota like ? or quota like ? or quota like ? or quota like ? or quota like ? or quota like ?', desired_cuota,'%,' + desired_cuota, '%,' + desired_cuota +',%' ,desired_cuota + ',%','%, ' + desired_cuota, '%, ' + desired_cuota +' ,%' ,desired_cuota + ' ,%','%, ' + desired_cuota + ' ',' ' + desired_cuota + ' ',' ' + desired_cuota + ',%' ) if desired_cuota.present?}
 
 # activeresource
   def bank
